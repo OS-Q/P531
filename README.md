@@ -24,9 +24,9 @@
 
 ## [包含设备](https://github.com/OS-Q/W14/wiki) 
 
-#### D92：[有线模块](https://github.com/OS-Q/D92)
+#### D92：[NFC设备](https://github.com/OS-Q/D92)
 
-有线信号转换，如IIC/SPI/USB/485等通信方式
+
 
 #### D93：[低频模块](https://github.com/OS-Q/D93)
 
@@ -44,13 +44,13 @@ sub1GHz -> 2.4GHz
 
 2.4GHz ->  sub1GHz
 
-#### D97：[低频中继](https://github.com/OS-Q/D97)
+#### D97：[工业总线](https://github.com/OS-Q/D97)
 
-sub1GHz ->  sub1GHz
 
-#### D98：[高频中继](https://github.com/OS-Q/D98)
 
-2.4GHz ->  2.4GHz
+#### D98：[USB设备](https://github.com/OS-Q/D98)
+
+
 
 ## [同级平台](https://github.com/OS-Q/M4/wiki)
 
