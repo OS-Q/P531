@@ -8,7 +8,7 @@
 
 ## [平台描述](https://github.com/OS-Q/W14/wiki) 
 
-通道转换平台,用于变换物理通信方式或通信协议,平台受其他设备控制
+通道转换平台,用于变换物理通信方式或通信协议,通道平台受其他设备控制
 
 ### [共用资源](https://github.com/OS-Q/W14/wiki/) 
 
@@ -20,33 +20,33 @@
 
 ## [包含设备](https://github.com/OS-Q/W14/wiki) 
 
-#### D92：[RS485](https://github.com/OS-Q/D92)
+#### D92：[USB](https://github.com/OS-Q/D92)
 
-将串口通信数据转换为RS485信号发送
+将数据转换为USB通信数据，方便适配各种标准设备
 
-#### D93：[USB](https://github.com/OS-Q/D93)
+#### D93：[RS485](https://github.com/OS-Q/D93)
 
-将串口通信数据转换为USB数据发送
+将数据转换为RS485信号，用于长距离和控制类适配
 
 #### D94：[Ethernet](https://github.com/OS-Q/D94)
 
-通过串口或SPI接收转发数据通过以太网发送数据
+通过以太网转发数据，实现数据入网或者长距通信
 
 #### D95：[IR](https://github.com/OS-Q/D95)
 
-将通信数据转换为IR信号发送
+将通信数据转换为IR信号发送，短距无线通信控制
 
-#### D96：[ISM-LF](https://github.com/OS-Q/D96)
+#### D96：[ISM-HF](https://github.com/OS-Q/D96)
 
-通过射频芯片将数据信号转换为433MHz频段无线电发送
+将数据转换为高频ISM射频信号，实现近距离通信
 
-#### D97：[ISM-HF](https://github.com/OS-Q/D97)
+#### D97：[ISM-LF](https://github.com/OS-Q/D97)
 
-将通信数据转换为2.4GHz频段射频发送出去
+将数据转换为低频ISM射频信号，实现远距离通信
 
-#### D98：[LORA](https://github.com/OS-Q/D98)
+#### D98：[LoRa](https://github.com/OS-Q/D98)
 
-将通信数据转换为LORA发送
+将数据转换为LoRa射频信号，实现广域无线通信
 
 ## [同级平台](https://github.com/OS-Q/M4/wiki)
 
