@@ -1,4 +1,4 @@
-﻿# W14：[通道转换](https://github.com/OS-Q/W14)
+﻿# W14：[有线转换](https://github.com/OS-Q/W14)
 
 [![sites](OS-Q/OS-Q.png)](http://www.OS-Q.com)
 
@@ -8,9 +8,9 @@
 
 ## [平台描述](https://github.com/OS-Q/W14/wiki) 
 
-通道转换平台,用于变换物理通信方式或通信协议,通道平台受其他设备控制
+有线转换平台,用于变换物理通信方式或通信协议,通道平台受其他设备控制
 
-### [共用资源](https://github.com/OS-Q/W14/wiki/) 
+### [资源](OS-Q/)
 
 ---
 
@@ -32,39 +32,39 @@
 
 通过以太网转发数据，实现数据入网或者长距通信
 
-#### D95：[IR](https://github.com/OS-Q/D95)
+#### D95：[NULL](https://github.com/OS-Q/D95)
 
-将通信数据转换为IR信号发送，短距无线通信控制
 
-#### D96：[ISM-HF](https://github.com/OS-Q/D96)
 
-将数据转换为高频ISM射频信号，实现近距离通信
+#### D96：[NULL](https://github.com/OS-Q/D96)
 
-#### D97：[ISM-LF](https://github.com/OS-Q/D97)
 
-将数据转换为低频ISM射频信号，实现远距离通信
 
-#### D98：[LoRa](https://github.com/OS-Q/D98)
+#### D97：[NULL](https://github.com/OS-Q/D97)
 
-将数据转换为LoRa射频信号，实现广域无线通信
 
-## [同级平台](https://github.com/OS-Q/M4/wiki)
 
-#### -> W14：[通道转换](https://github.com/OS-Q/W14)
+#### D98：[NULL](https://github.com/OS-Q/D98)
 
-物理通信通道或通信协议的改变
 
-#### W15：[通道扩展](https://github.com/OS-Q/W15)
 
-通信通道数量和适配的种类扩充
+## [同级平台](https://github.com/OS-Q/M4/wiki) 
 
-#### W16：[通信中继](https://github.com/OS-Q/W16)
+#### -> W14：[有线转换](https://github.com/OS-Q/W14)
 
-通信信号在传输过程中进行补强
+有线通信通道或通信协议的切换
 
-#### W17：[专用模块](https://github.com/OS-Q/W17)
+#### W15：[短距通道](https://github.com/OS-Q/W15)
 
-用于适配他人设备专用桥接模块
+短距数据无线通信调制桥接管道
+
+#### W16：[无线中继](https://github.com/OS-Q/W16)
+
+无线通信数据空中无差补强中继
+
+#### W17：[广域通道](https://github.com/OS-Q/W17)
+
+用于广域覆盖无线通信连接接入
 
 ---
 
