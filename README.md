@@ -14,22 +14,21 @@ Edge-Q -> 体系 Q[1,4] -> 节点 M[1,12] -> 平台 W[1,52] -> 设备 D[1,365]
 - [资源](src/)
 - [文档](docs/)
 
-
 ### [平台相关](https://github.com/OS-Q/W14) 
 
 * M4：[通信管道](https://github.com/OS-Q/M4)
-	* W14：[电气转换](https://github.com/OS-Q/W14)
-		* D92：[IIC](https://github.com/OS-Q/D92)
-		* D93：[RS485-L](https://github.com/OS-Q/D93)
-		* D94：[RS485-A](https://github.com/OS-Q/D94)
-		* D95：[USB-L](https://github.com/OS-Q/D95)
-		* D96：[USB-A](https://github.com/OS-Q/D96)
-		* D97：[Ethernet-L](https://github.com/OS-Q/D97)
-		* D98：[Ethernet-A](https://github.com/OS-Q/D98)
-	* W15：[无线调制](https://github.com/OS-Q/W15)
-	* W16：[频道转换](https://github.com/OS-Q/W16)
-	* W17：[信号增强](https://github.com/OS-Q/W17)
+	* W14：[接口转换](https://github.com/OS-Q/W14)
+		* D92：[IIC-COM](https://github.com/OS-Q/D92)
+		* D93：[485-COM](https://github.com/OS-Q/D93)
+		* D94：[485-USB](https://github.com/OS-Q/D94)
+		* D95：[USB-COM](https://github.com/OS-Q/D95)
+		* D96：[USB-PCIE](https://github.com/OS-Q/D96)
+		* D97：[ETH-COM](https://github.com/OS-Q/D97)
+		* D98：[ETH-USB](https://github.com/OS-Q/D98)
+	* W15：[无线模块](https://github.com/OS-Q/W15)
+	* W16：[无线设备](https://github.com/OS-Q/W16)
+	* W17：[广域网络](https://github.com/OS-Q/W17)
 
 
 ### [OS-Q : Operation System for edge devices](http://www.OS-Q.com/Edge/W14)
-####  2019-5-13
+####  2019-5-20
