@@ -17,7 +17,7 @@ Edge-Q -> 体系 Q[1,4] -> 节点 M[1,12] -> 平台 W[1,52] -> 设备 D[1,365]
 ### [平台相关](https://github.com/OS-Q/W14) 
 
 * M4：[通信管道](https://github.com/OS-Q/M4)
-	* W14：[接口转换](https://github.com/OS-Q/W14)
+	* W14：接口转换
 		* D92：[IIC-COM](https://github.com/OS-Q/D92)
 		* D93：[485-COM](https://github.com/OS-Q/D93)
 		* D94：[485-USB](https://github.com/OS-Q/D94)
