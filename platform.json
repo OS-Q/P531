@@ -1,5 +1,5 @@
 {
-  "name": "ESP12",
+  "name": "espressif8266",
   "title": "Espressif 8266",
   "description": "Espressif Systems is a privately held fabless semiconductor company. They provide wireless communications and Wi-Fi chips which are widely used in mobile devices and the Internet of Things applications.",
   "url": "https://espressif.com/",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OS-Q/W14.git"
+    "url": "https://github.com/platformio/platform-espressif8266.git"
   },
   "version": "2.2.2",
   "packageRepositories": [
