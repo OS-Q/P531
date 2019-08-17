@@ -3,8 +3,8 @@
   "title": "Espressif 8266",
   "description": "Espressif Systems is a privately held fabless semiconductor company. They provide wireless communications and Wi-Fi chips which are widely used in mobile devices and the Internet of Things applications.",
   "url": "https://espressif.com/",
-  "homepage": "http://platformio.org/platforms/espressif8266",
-  "license": "Apache-2.0",
+  "homepage": "http://OS-Q.com/espressif8266",
+  "license": " ",
   "engines": {
     "platformio": "<5"
   },
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/OS-Q/M4P.git"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json",
