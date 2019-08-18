@@ -6,7 +6,7 @@
 
 [EDGE-Q](https://github.com/OS-Q/EDGE-Q) -> Q[4] -> M[12] -> W[52] -> D[365] -> H[24]
 
-## [Platform描述](https://github.com/OS-Q/H8/wiki) 
+### [Platform描述](https://github.com/OS-Q/H8/wiki) 
 
 [Platform H8](https://github.com/OS-Q/H8)基于 PlatformIO平台开发
 
@@ -24,7 +24,7 @@ board = ...
 ### [关联资源](https://github.com/OS-Q/)
 
  *  [通信端点 M4](https://github.com/OS-Q/M4) 
- *  [Platform H8](https://github.com/OS-Q/H8)
+ *  [Framework H7](https://github.com/OS-Q/H7)
 
 
 ### [OS-Q : Open Solutions & Open Source](http://www.OS-Q.com/H8)
