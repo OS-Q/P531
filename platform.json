@@ -1,10 +1,10 @@
 {
-  "name": "ESP12",
+  "name": "espressif8266",
   "title": "ESP12",
   "description": "Espressif Systems is a privately held fabless semiconductor company.",
   "url": "https://espressif.com/",
   "homepage": "http://OS-Q.com/espressif8266",
-  "license": "Apache-2.0",
+  "license": " ",
   "engines": {
     "platformio": "<5"
   },
