@@ -52,7 +52,7 @@ env.AddMethod(LookupSources)
 env.AddMethod(VariantDirWrap)
 
 env.Replace(
-    PLATFORMFW_DIR=platform.get_package_dir("framework-SimbaOS"),
+    PLATFORMFW_DIR=platform.get_package_dir("framework-simbaOS"),
     OBJCOPY=join(platform.get_package_dir("tool-esptool"), "esptool")
 )
 
