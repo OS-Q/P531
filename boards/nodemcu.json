@@ -20,7 +20,7 @@
   ],
   "frameworks": [
     "arduino",
-    "simba",
+    "SimbaOS",
     "rtos8266",
     "esp8266"
   ],
