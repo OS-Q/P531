@@ -1,16 +1,16 @@
 {
   "name": "espressif8266",
-  "title": "Espressif 8266",
+  "title": "ESP8266",
   "description": "Espressif Systems is a privately held fabless semiconductor company.",
   "url": "https://espressif.com/",
-  "homepage": "http://platformio.org/platforms/espressif8266",
+  "homepage": "http://OS-Q.com/espressif8266",
   "license": "Apache-2.0",
   "engines": {
     "platformio": "<5"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/platformio/platform-espressif8266.git"
+    "url": "https://github.com/OS-Q/espressif8266.git"
   },
   "version": "1.0.0",
   "packageRepositories": [
@@ -26,13 +26,13 @@
       "package": "framework-simba",
       "script": "builder/frameworks/simba.py"
     },
-    "esp8266-rtos-sdk": {
+    "rtos8266": {
       "package": "framework-rtos8266",
-      "script": "builder/frameworks/esp8266-rtos-sdk.py"
+      "script": "builder/frameworks/rtos8266.py"
     },
-    "esp8266-nonos-sdk": {
-      "package": "framework-esp8266-nonos-sdk",
-      "script": "builder/frameworks/esp8266-nonos-sdk.py"
+    "esp8266": {
+      "package": "framework-esp8266",
+      "script": "builder/frameworks/esp8266.py"
     }
   },
   "packages": {
@@ -50,7 +50,7 @@
       "optional": true,
       "version": "https://github.com/OS-Q/N12.git"
     },
-    "framework-esp8266-nonos-sdk": {
+    "framework-esp8266": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N13.git"
