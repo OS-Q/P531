@@ -1,9 +1,25 @@
+# Copyright 2014-present PlatformIO <contact@platformio.org>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# pylint: disable=redefined-outer-name
+
 import re
 import sys
 from os.path import join
 
 
-from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
+from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild,
                           Builder, Default, DefaultEnvironment)
 from platformio import util
 
@@ -120,7 +136,7 @@ env.Replace(
     CC="xtensa-lx106-elf-gcc",
     CXX="xtensa-lx106-elf-g++",
     GDB="xtensa-lx106-elf-gdb",
-    OBJCOPY="esptool",
+    OBJCOPY="xtensa-lx106-elf-objcopy",
     RANLIB="xtensa-lx106-elf-ranlib",
     SIZETOOL="xtensa-lx106-elf-size",
 
@@ -132,22 +148,21 @@ env.Replace(
 
     MKSPIFFSTOOL="mkspiffs",
 
-    SIZEPROGREGEXP=r"^(?:\.irom0\.text|\.text|\.data|\.rodata|)\s+([0-9]+).*",
+    SIZEPROGREGEXP=r"^(?:\.irom0\.text|\.text|\.text1|\.data|\.rodata|)\s+([0-9]+).*",
     SIZEDATAREGEXP=r"^(?:\.data|\.rodata|\.bss)\s+([0-9]+).*",
     SIZECHECKCMD="$SIZETOOL -A -d $SOURCES",
     SIZEPRINTCMD='$SIZETOOL -B -d $SOURCES',
 
     ERASEFLAGS=[
-        "-cp", "$UPLOAD_PORT",
-        "-cd", "$UPLOAD_RESETMETHOD"
+        "--chip", "esp8266",
+        "--port", '"$UPLOAD_PORT"'
     ],
-    ERASECMD='esptool $ERASEFLAGS -ce',
+    ERASETOOL=join(
+        platform.get_package_dir("tool-esptoolpy") or "", "esptool.py"),
+    ERASECMD='"$PYTHONEXE" "$ERASETOOL" $ERASEFLAGS erase_flash',
 
     PROGSUFFIX=".elf"
 )
-
-if int(ARGUMENTS.get("PIOVERBOSE", 0)):
-    env.Prepend(UPLOADERFLAGS=["-vv"])
 
 # Allow user to override via pre:script
 if env.get("PROGNAME", "program") == "program":
@@ -182,84 +197,17 @@ env.Append(
 
 
 #
-# Framework and SDK specific configuration
-#
-
-if env.subst("$PIOFRAMEWORK") in ("arduino", "simba"):
-    if "simba" in env.subst("$PIOFRAMEWORK"):
-        ebootelf_path = join(
-            platform.get_package_dir("framework-simba") or "", "3pp",
-            "esp8266Arduino", "2.3.0", "bootloaders", "eboot", "eboot.elf")
-    else:
-        ebootelf_path = join(
-            platform.get_package_dir("framework-arduinoespressif8266") or "",
-            "bootloaders", "eboot", "eboot.elf")
-
-    env.Append(
-        BUILDERS=dict(
-            ElfToBin=Builder(
-                action=env.VerboseAction(" ".join([
-                    '"$OBJCOPY"',
-                    "-eo", '"%s"' % ebootelf_path,
-                    "-bo", "$TARGET",
-                    "-bm", "$BOARD_FLASH_MODE",
-                    "-bf", "${__get_board_f_flash(__env__)}",
-                    "-bz", "${__get_flash_size(__env__)}",
-                    "-bs", ".text",
-                    "-bp", "4096",
-                    "-ec",
-                    "-eo", "$SOURCES",
-                    "-bs", ".irom0.text",
-                    "-bs", ".text",
-                    "-bs", ".data",
-                    "-bs", ".rodata",
-                    "-bc", "-ec"
-                ]), "Building $TARGET"),
-                suffix=".bin"
-            )
-        )
-    )
-else:
-    # ESP8266 RTOS SDK and Native SDK common configuration
-    env.Append(
-        BUILDERS=dict(
-            ElfToBin=Builder(
-                action=env.VerboseAction(" ".join([
-                    '"$OBJCOPY"',
-                    "-eo", "$SOURCES",
-                    "-bo", "${TARGETS[0]}",
-                    "-bm", "$BOARD_FLASH_MODE",
-                    "-bf", "${__get_board_f_flash(__env__)}",
-                    "-bz", "${__get_flash_size(__env__)}",
-                    "-bs", ".text",
-                    "-bs", ".data",
-                    "-bs", ".rodata",
-                    "-bc", "-ec",
-                    "-eo", "$SOURCES",
-                    "-es", ".irom0.text", "${TARGETS[1]}",
-                    "-ec", "-v"
-                ]), "Building $TARGET"),
-                suffix=".bin"
-            )
-        )
-    )
-
-#
 # Target: Build executable and linkable firmware or SPIFFS image
 #
 
 target_elf = env.BuildProgram()
 if "nobuild" in COMMAND_LINE_TARGETS:
+    target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
     if set(["uploadfs", "uploadfsota"]) & set(COMMAND_LINE_TARGETS):
         fetch_spiffs_size(env)
         target_firm = join("$BUILD_DIR", "spiffs.bin")
-    elif env.subst("$PIOFRAMEWORK") in ("arduino", "simba"):
-        target_firm = join("$BUILD_DIR", "${PROGNAME}.bin")
     else:
-        target_firm = [
-            join("$BUILD_DIR", "eagle.flash.bin"),
-            join("$BUILD_DIR", "eagle.irom0text.bin")
-        ]
+        target_firm = join("$BUILD_DIR", "${PROGNAME}.bin")
 else:
     if set(["buildfs", "uploadfs", "uploadfsota"]) & set(COMMAND_LINE_TARGETS):
         target_firm = env.DataToBin(
@@ -267,14 +215,8 @@ else:
         AlwaysBuild(target_firm)
         AlwaysBuild(env.Alias("buildfs", target_firm))
     else:
-        if env.subst("$PIOFRAMEWORK") in ("arduino", "simba"):
-            target_firm = env.ElfToBin(
-                join("$BUILD_DIR", "${PROGNAME}"), target_elf)
-        else:
-            target_firm = env.ElfToBin([
-                join("$BUILD_DIR", "eagle.flash.bin"),
-                join("$BUILD_DIR", "eagle.irom0text.bin")
-            ], target_elf)
+        target_firm = env.ElfToBin(
+            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
@@ -327,7 +269,8 @@ if upload_protocol == "espota":
             "espressif8266.html#over-the-air-ota-update\n")
     env.Replace(
         UPLOADER=join(
-            platform.get_package_dir("tool-espotapy") or "", "espota.py"),
+            platform.get_package_dir("framework-arduino8266") or "",
+            "tools", "espota.py"),
         UPLOADERFLAGS=["--debug", "--progress", "-i", "$UPLOAD_PORT"],
         UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS -f $SOURCE'
     )
@@ -337,24 +280,34 @@ if upload_protocol == "espota":
 
 elif upload_protocol == "esptool":
     env.Replace(
-        UPLOADER="esptool",
+        UPLOADER=join(
+            platform.get_package_dir("tool-esptoolpy") or "", "esptool.py"),
         UPLOADERFLAGS=[
-            "-cd", "$UPLOAD_RESETMETHOD",
-            "-cb", "$UPLOAD_SPEED",
-            "-cp", '"$UPLOAD_PORT"'
+            "--chip", "esp8266",
+            "--port", '"$UPLOAD_PORT"',
+            "--baud", "$UPLOAD_SPEED",
+            "write_flash"
         ],
-        UPLOADCMD='$UPLOADER $UPLOADERFLAGS -cf $SOURCE',
+        UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS 0x0 $SOURCE'
     )
-    if env.subst("$PIOFRAMEWORK") not in ("arduino", "simba"):  # SDK
-        for image in env.get("FLASH_EXTRA_IMAGES", []):
-            env.Append(
-                UPLOADERFLAGS=["-ca", image[0], "-cf", env.subst(image[1])])
-        env.Replace(UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
-    elif "uploadfs" in COMMAND_LINE_TARGETS:
-        env.Append(UPLOADERFLAGS=["-ca", "${hex(SPIFFS_START)}"])
+    for image in env.get("FLASH_EXTRA_IMAGES", []):
+        env.Append(UPLOADERFLAGS=[image[0], env.subst(image[1])])
+
+    if "uploadfs" in COMMAND_LINE_TARGETS:
+        env.Replace(
+            UPLOADERFLAGS=[
+                "--chip", "esp8266",
+                "--port", '"$UPLOAD_PORT"',
+                "--baud", "$UPLOAD_SPEED",
+                "write_flash",
+                "$SPIFFS_START"
+            ],
+            UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS $SOURCE',
+        )
+
     upload_actions = [
-        env.VerboseAction(
-            env.AutodetectUploadPort, "Looking for upload port..."),
+        env.VerboseAction(env.AutodetectUploadPort,
+                          "Looking for upload port..."),
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
@@ -375,7 +328,7 @@ AlwaysBuild(
     env.Alias("erase", None, [
         env.VerboseAction(env.AutodetectUploadPort,
                           "Looking for serial port..."),
-        env.VerboseAction("$ERASECMD", "Ready for erasing")
+        env.VerboseAction("$ERASECMD", "Erasing...")
     ]))
 
 
