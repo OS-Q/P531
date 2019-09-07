@@ -22,8 +22,8 @@
       "package": "framework-arduino8266",
       "script": "builder/frameworks/arduino.py"
     },
-    "simbaOS": {
-      "package": "framework-simbaOS",
+    "simba": {
+      "package": "framework-simba",
       "script": "builder/frameworks/simba.py"
     },
     "rtos8266": {
@@ -55,7 +55,7 @@
       "optional": true,
       "version": "https://github.com/OS-Q/N13.git"
     },
-    "framework-simbaOS": {
+    "framework-simba": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N16.git"
