@@ -1,6 +1,6 @@
 from platformio.managers.platform import PlatformBase
 
-class Esp12Platform(PlatformBase):
+class H8Platform(PlatformBase):
 
     def configure_default_packages(self, variables, targets):
         framework = variables.get("pioframework")

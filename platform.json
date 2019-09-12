@@ -1,9 +1,9 @@
 {
-  "name": "ESP12",
-  "title": "ESP12",
-  "description": "Espressif Systems is a privately held fabless semiconductor company.",
+  "name": "H8",
+  "title": "H8",
+  "description": "ESP8266/8285开发平台",
   "url": "https://espressif.com/",
-  "homepage": "http://OS-Q.com/espressif8266",
+  "homepage": "http://OS-Q.com/H8",
   "license": " ",
   "engines": {
     "platformio": "<5"
@@ -19,46 +19,46 @@
   ],
   "frameworks": {
     "arduino": {
-      "package": "framework-arduino8266",
+      "package": "framework-N11",
       "script": "builder/frameworks/arduino.py"
     },
     "simba": {
-      "package": "framework-simba",
+      "package": "framework-N16",
       "script": "builder/frameworks/simba.py"
     },
     "rtos8266": {
-      "package": "framework-rtos8266",
+      "package": "framework-N12",
       "script": "builder/frameworks/rtos8266.py"
     },
     "esp8266": {
-      "package": "framework-esp8266",
+      "package": "framework-N13",
       "script": "builder/frameworks/esp8266.py"
     }
   },
   "packages": {
-    "toolchain-xtensa": {
-      "type": "toolchain",
-      "version": "<3"
-    },
-    "framework-arduino8266": {
+    "framework-N11": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N11.git"
     },
-    "framework-rtos8266": {
+    "framework-N12": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N12.git"
     },
-    "framework-esp8266": {
+    "framework-N13": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N13.git"
     },
-    "framework-simba": {
+    "framework-N16": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N16.git"
+    },
+    "toolchain-xtensa": {
+      "type": "toolchain",
+      "version": "<3"
     },
     "tool-esptool": {
       "type": "uploader",
