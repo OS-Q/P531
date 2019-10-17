@@ -8,10 +8,6 @@
 
 [Platform H8](https://github.com/OS-Q/H8)基于 PlatformIO平台开发
 
-### [Framework资源](https://github.com/OS-Q) 
-
-* [Framework N12](https://github.com/OS-Q/N12)
-* [Framework N13](https://github.com/OS-Q/N13)
 
 ### [OS-Q = Open Solutions | Open Source |  Operating System ](http://www.OS-Q.com/H8)
 ####  2019-9-6
