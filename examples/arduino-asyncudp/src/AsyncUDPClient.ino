@@ -1,8 +1,8 @@
 #include <ESP8266WiFi.h>
 #include "ESPAsyncUDP.h"
 
-const char * ssid = "jian24";
-const char * password = "2017jian24";
+const char* ssid = "ziroom702";
+const char* password = "ziroomer002";
 
 AsyncUDP udp;
 
@@ -14,6 +14,7 @@ void setup()
     if (WiFi.waitForConnectResult() != WL_CONNECTED) {
         Serial.println("WiFi Failed");
         while(1) {
+            Serial.println(".");
             delay(1000);
         }
     }
