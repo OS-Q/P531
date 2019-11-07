@@ -14,8 +14,9 @@
   },
   "version": "1.0.0",
   "packageRepositories": [
-    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
-    "http://dl.platformio.org/packages/manifest.json"
+    "http://182.61.61.133/manifest/toolchain/manifest.json",
+    "http://182.61.61.133/manifest/framework/manifest.json",
+    "http://182.61.61.133/manifest/manifest.json"
   ],
   "frameworks": {
     "arduino": {
