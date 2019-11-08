@@ -40,7 +40,7 @@
     "framework-N11": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N11.git"
+      "version": ">2"
     },
     "framework-N12": {
       "type": "framework",
