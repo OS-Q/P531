@@ -23,10 +23,6 @@
       "package": "framework-N11",
       "script": "builder/frameworks/arduino.py"
     },
-    "simba": {
-      "package": "framework-N16",
-      "script": "builder/frameworks/simba.py"
-    },
     "rtos8266": {
       "package": "framework-N12",
       "script": "builder/frameworks/rtos8266.py"
@@ -34,28 +30,32 @@
     "esp8266": {
       "package": "framework-N13",
       "script": "builder/frameworks/esp8266.py"
+    },
+    "simba": {
+      "package": "framework-N16",
+      "script": "builder/frameworks/simba.py"
     }
   },
   "packages": {
     "framework-N11": {
       "type": "framework",
       "optional": true,
-      "version": "~2.5.2"
+      "version": "^2.5.2"
     },
     "framework-N12": {
       "type": "framework",
       "optional": true,
-      "version": "^1.0.x"
+      "version": "~3.2"
     },
     "framework-N13": {
       "type": "framework",
       "optional": true,
-      "version": "~3.0.1"
+      "version": "^3.0.1"
     },
     "framework-N16": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N16.git"
+      "version": "~15.0.3"
     },
     "toolchain-xtensa": {
       "type": "toolchain",
