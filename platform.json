@@ -40,17 +40,17 @@
     "framework-N11": {
       "type": "framework",
       "optional": true,
-      "version": ">2"
+      "version": "~2.5.2"
     },
     "framework-N12": {
       "type": "framework",
       "optional": true,
-      "version": "~1.0.0"
+      "version": "^1.0.x"
     },
     "framework-N13": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N13.git"
+      "version": "~3.0.1"
     },
     "framework-N16": {
       "type": "framework",
