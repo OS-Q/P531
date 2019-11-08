@@ -4,7 +4,7 @@
   "description": "ESP8266开发平台",
   "url": "https://espressif.com/",
   "homepage": "http://OS-Q.com/H8",
-  "license": " ",
+  "license": "MIT",
   "engines": {
     "platformio": "<5"
   },
@@ -45,7 +45,7 @@
     "framework-N12": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N12.git"
+      "version": "~1.0.0"
     },
     "framework-N13": {
       "type": "framework",
