@@ -14,9 +14,10 @@
   },
   "version": "1.0.0",
   "packageRepositories": [
-    "http://182.61.61.133/manifest/toolchain/manifest.json",
-    "http://182.61.61.133/manifest/framework/manifest.json",
-    "http://182.61.61.133/manifest/manifest.json"
+    "http://182.61.61.133/link/toolchain/manifest.json",
+    "http://182.61.61.133/link/framework/manifest.json",
+    "http://182.61.61.133/link/platformio.json",
+    "http://182.61.61.133/link/platform.json"
   ],
   "frameworks": {
     "arduino": {
