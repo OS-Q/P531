@@ -1,7 +1,7 @@
 {
   "name": "H8",
   "title": "H8",
-  "description": "ESP8266A软件开发平台",
+  "description": "ESP8266软件开发平台",
   "url": "https://espressif.com/",
   "homepage": "http://OS-Q.com/H8",
   "license": "MIT",
@@ -46,22 +46,22 @@
     "framework-N11": {
       "type": "framework",
       "optional": true,
-      "version": "^2.5.2"
+      "version": "https://github.com/OS-Q/N11.git"
     },
     "framework-N12": {
       "type": "framework",
       "optional": true,
-      "version": "~3.2"
+      "version": "https://github.com/OS-Q/N12.git"
     },
     "framework-N13": {
       "type": "framework",
       "optional": true,
-      "version": "^3.0.1"
+      "version": "https://github.com/OS-Q/N13.git"
     },
     "framework-N16": {
       "type": "framework",
       "optional": true,
-      "version": "~15.0.3"
+      "version": "https://github.com/OS-Q/N16.git"
     },
     "toolchain-xtensa": {
       "type": "toolchain",
