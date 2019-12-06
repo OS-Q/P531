@@ -24,7 +24,7 @@
     "freeRTOS",
     "nonOS"
   ],
-  "name": "NodeMCU (ESP-12 Module)",
+  "name": "NodeMCU (ESP-12)",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 4194304,

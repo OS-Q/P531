@@ -18,7 +18,7 @@
     "freeRTOS",
     "nonOS"
   ],
-  "name": "WeMos D1 mini",
+  "name": "D1 mini",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 4194304,
