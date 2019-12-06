@@ -14,8 +14,9 @@
   ],
   "frameworks": [
     "arduino",
-    "rtos8266",
-    "esp8266"
+    "simba",
+    "freeRTOS",
+    "nonOS"
   ],
   "name": "WEMOS D1 R1",
   "upload": {

@@ -9,7 +9,7 @@
 
 ### [Platform描述](https://github.com/OS-Q/H8/wiki) 
 
-[Platform H8](https://github.com/OS-Q/H8)基于PlatformIO平台，用于[ESP8266/ESP8285](https://github.com/sochub/ESP8266)软件开发
+[Platform H8](https://github.com/OS-Q/H8) 基于PlatformIO平台，用于[ESP8266/ESP8285](https://github.com/sochub/ESP8266) 软件开发
 
 ### [OS-Q = Open Solutions | Open Source |  Operating System ](http://www.OS-Q.com/H8)
 ####  2019-9-6

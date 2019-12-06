@@ -21,10 +21,10 @@
   "frameworks": [
     "arduino",
     "simba",
-    "rtos8266",
-    "esp8266"
+    "freeRTOS",
+    "nonOS"
   ],
-  "name": "NodeMCU 0.9 (ESP-12 Module)",
+  "name": "NodeMCU (ESP-12 Module)",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 4194304,

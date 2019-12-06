@@ -13,7 +13,10 @@
     "wifi"
   ],
   "frameworks": [
-    "arduino"
+    "arduino",
+    "simba",
+    "freeRTOS",
+    "nonOS"
   ],
   "name": "WeMos D1 mini Lite",
   "upload": {

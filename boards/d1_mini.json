@@ -14,10 +14,11 @@
   ],
   "frameworks": [
     "arduino",
-    "rtos8266",
-    "esp8266"
+    "simba",
+    "freeRTOS",
+    "nonOS"
   ],
-  "name": "WeMos D1 R2 and mini",
+  "name": "WeMos D1 mini",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 4194304,

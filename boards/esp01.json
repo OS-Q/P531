@@ -15,10 +15,10 @@
   "frameworks": [
     "arduino",
     "simba",
-    "rtos8266",
-    "esp8266"
+    "freeRTOS",
+    "nonOS"
   ],
-  "name": "Espressif Generic ESP8266 ESP-01 512k",
+  "name": "ESP-01 512k",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 524288,

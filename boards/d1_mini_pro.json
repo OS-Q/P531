@@ -14,8 +14,9 @@
   ],
   "frameworks": [
     "arduino",
-    "rtos8266",
-    "esp8266"
+    "simba",
+    "freeRTOS",
+    "nonOS"
   ],
   "name": "WeMos D1 mini Pro",
   "upload": {

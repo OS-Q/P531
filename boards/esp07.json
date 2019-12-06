@@ -14,10 +14,11 @@
   ],
   "frameworks": [
     "arduino",
-    "rtos8266",
-    "esp8266"
+    "simba",
+    "freeRTOS",
+    "nonOS"
   ],
-  "name": "Espressif Generic ESP8266 ESP-07",
+  "name": "ESP-07",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 4194304,
