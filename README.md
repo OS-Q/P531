@@ -1,5 +1,7 @@
 ﻿# [Platform H8](https://github.com/OS-Q/H8)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/v4ssfs3uk0y0bg89?svg=true)](https://ci.appveyor.com/project/Qitas/h8)
+
 [![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
 
 #### 关于系统架构：[OS-Q](https://github.com/OS-Q)
