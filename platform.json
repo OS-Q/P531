@@ -1,9 +1,9 @@
 {
   "name": "H8",
   "title": "H8",
-  "description": "ESP8266软件开发",
+  "description": "H8 For ESP8266/ESP8285",
   "url": "https://espressif.com/",
-  "homepage": "http://OS-Q.com/H8",
+  "homepage": "http://www.OS-Q.com/H8",
   "license": "MIT",
   "engines": {
     "platformio": "<5"
