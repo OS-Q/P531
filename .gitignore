@@ -1,5 +1,4 @@
 *.db
-*.yml
 __pycache__/
 .vscode/
 .pio/
