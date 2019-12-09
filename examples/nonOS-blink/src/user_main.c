@@ -74,7 +74,7 @@ void ICACHE_FLASH_ATTR user_init(void)
     os_printf("SDK version:%s\n", system_get_sdk_version());
 
     // Disable WiFi
-    	wifi_set_opmode(NULL_MODE);
+    wifi_set_opmode(NULL_MODE);
 
     PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO2_U, FUNC_GPIO2);
 

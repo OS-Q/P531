@@ -11,7 +11,8 @@ int main()
     pin_init(&led, &pin_led_dev, PIN_OUTPUT);
     pin_write(&led, 1);
 
-    while (1) {
+    while (1) 
+    {
         /* Wait half a second. */
         thrd_sleep_us(500000);
         /* Toggle the LED on/off. */

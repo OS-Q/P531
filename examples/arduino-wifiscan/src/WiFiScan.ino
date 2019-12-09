@@ -1,7 +1,12 @@
 #include "ESP8266WiFi.h"
 
-void setup() {
-  Serial.begin(115200);
+void setup() 
+{
+#ifdef BAUD
+  Serial.begin(BAUD);
+#else
+Serial.begin(9600);
+#endif
 
   // Set WiFi to station mode and disconnect from an AP if it was previously connected
   WiFi.mode(WIFI_STA);

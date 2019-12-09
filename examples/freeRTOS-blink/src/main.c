@@ -49,6 +49,10 @@ uint32 user_rf_cal_sector_set(void)
 
 void task_blink(void* ignore)
 {
+    // gpio_init();
+    // uart_init(115200, 115200);
+    UART_SetBaudrate(0, 115200);
+    os_printf("\nSDK version:%s\n", system_get_sdk_version());
     gpio16_output_conf();
     while(true) 
     {

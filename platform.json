@@ -1,17 +1,23 @@
 {
-  "name": "H8",
-  "title": "H8",
-  "description": "H8 For ESP8266/ESP8285",
+  "name": "H08",
+  "title": "H08",
+  "description": "H08 :Espressif ESP8266/ESP8285",
   "url": "https://espressif.com/",
-  "homepage": "http://www.OS-Q.com/H8",
+  "homepage": "http://www.OS-Q.com/H08",
   "license": "MIT",
   "engines": {
     "platformio": "<5"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OS-Q/H8.git"
+    "url": "https://github.com/OS-Q/H08.git"
   },
+  "authors": [{
+    "name": "qitas",
+    "email": "qitas@qitas.cn",
+    "url": "https://www.OS-Q.com"
+}],
+  "keywords": "OS-Q, ESP8266,ESP8285 ",
   "version": "1.0.0",
   "packageRepositories": [
     "http://182.61.61.133/link/toolchain/manifest.json",
