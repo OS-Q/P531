@@ -1,7 +1,7 @@
 {
   "name": "H08",
   "title": "H08",
-  "description": "H08 :Espressif ESP8266/ESP8285",
+  "description": "H08 : Espressif WiFi SoC ESP8266/ESP8285",
   "url": "https://espressif.com/",
   "homepage": "http://www.OS-Q.com/H08",
   "license": "MIT",
