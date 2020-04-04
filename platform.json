@@ -1,7 +1,7 @@
 {
   "name": "H08",
   "title": "H08",
-  "description": "H08 : ESP8266/ESP8285 WiFi SoC ",
+  "description": "ESP8266/ESP8285 WiFi SoC ",
   "url": "https://espressif.com/",
   "homepage": "http://www.OS-Q.com/H08",
   "license": "Apache-2.0",
@@ -17,15 +17,13 @@
     "email": "qitas@qitas.cn",
     "url": "https://www.OS-Q.com"
 }],
-  "keywords": "H08, ESP8266,ESP8285 ",
+  "keywords": "H08,ESP8266,ESP8285",
   "version": "2.4.0",
   "packageRepositories": [
     "http://182.61.61.133/link/toolchain/manifest.json",
     "http://182.61.61.133/link/framework/manifest.json",
     "http://182.61.61.133/link/platformio.json",
-    "http://182.61.61.133/link/platform.json",
-    "http://dl.platformio.org/packages/manifest.json",
-    "https://dl.bintray.com/platformio/dl-packages/manifest.json"
+    "http://182.61.61.133/link/platform.json"
   ],
   "frameworks": {
     "arduino": {
@@ -49,7 +47,7 @@
     "framework-N11": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N11.git"
+      "version": "~3.20603.0"
     },
     "framework-N12": {
       "type": "framework",
@@ -59,12 +57,12 @@
     "framework-N13": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N13.git"
+      "version": ">=2.1.0"
     },
     "framework-N16": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N16.git"
+      "version": ">=15.0.0"
     },
     "toolchain-xtensa": {
       "type": "toolchain",
