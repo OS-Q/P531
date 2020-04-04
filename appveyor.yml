@@ -2,12 +2,12 @@ build: off
 environment:
 
   matrix:
-    - PLATFORMIO_PROJECT_DIR: "examples/freeRTOS-blink"
-    - PLATFORMIO_PROJECT_DIR: "examples/nonOS-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-webserver"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-wifiscan"
     - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
+    # - PLATFORMIO_PROJECT_DIR: "examples/freeRTOS-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/nonOS-blink"
 
 install:
 - cmd: git submodule update --init --recursive
