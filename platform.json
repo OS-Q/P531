@@ -52,17 +52,17 @@
     "framework-N12": {
       "type": "framework",
       "optional": true,
-      "version": ">=1.0.0"
+      "version": "https://github.com/OS-Q/N12.git"
     },
     "framework-N13": {
       "type": "framework",
       "optional": true,
-      "version": ">=2.1.0"
+      "version": "https://github.com/OS-Q/N13.git"
     },
     "framework-N16": {
       "type": "framework",
       "optional": true,
-      "version": ">=15.0.0"
+      "version": "https://github.com/OS-Q/N16.git"
     },
     "toolchain-xtensa": {
       "type": "toolchain",
