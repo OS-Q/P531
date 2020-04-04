@@ -20,7 +20,7 @@
     "freeRTOS",
     "nonOS"
   ],
-  "name": "D1 mini",
+  "name": "Mini12",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 4194304,
@@ -28,6 +28,6 @@
     "resetmethod": "nodemcu",
     "speed": 115200
   },
-  "url": "https://wiki.wemos.cc/products:d1:d1_mini",
-  "vendor": "WEMOS"
+  "url": "http://www.OS-Q.com/H08/mini",
+  "vendor": "OS-Q"
 }
