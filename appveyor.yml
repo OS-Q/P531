@@ -3,16 +3,18 @@ environment:
 
   matrix:
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/arduino-asyncudp"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-webserver"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-wifiscan"
     - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
-    # - PLATFORMIO_PROJECT_DIR: "examples/freeRTOS-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/nonOS-blink"
+    # - PLATFORMIO_PROJECT_DIR: "examples/freeRTOS-blink"
+
 
 install:
 - cmd: git submodule update --init --recursive
 - cmd: SET PATH=C:\Python36\Scripts;%PATH%
-- cmd: pip3 install -U https://github.com/platformio/platformio/archive/develop.zip
+- cmd: pip3 install -U http://182.61.61.133/dl/platformio-core-develop.zip
 - cmd: platformio platform install file://.
 
 test_script:

@@ -1,5 +1,5 @@
 ﻿# [Platform H08](https://github.com/OS-Q/H08)
-
+[![Build Status](https://travis-ci.com/OS-Q/H08.svg?branch=master)](https://travis-ci.com/OS-Q/H08)
 [![Build status](https://ci.appveyor.com/api/projects/status/8ro1qlqcv7ash1aq?svg=true)](https://ci.appveyor.com/project/Qitas/H08)
 
 [![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
