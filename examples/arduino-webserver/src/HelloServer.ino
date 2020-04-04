@@ -3,8 +3,8 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-const char* ssid = "ziroom702";
-const char* password = "ziroomer002";
+const char* ssid = "sstz";
+const char* password = "sstzsstz";
 
 ESP8266WebServer server(80);
 

@@ -6,7 +6,7 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-asyncudp"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-webserver"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-wifiscan"
-    - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
+    # - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/nonOS-blink"
     # - PLATFORMIO_PROJECT_DIR: "examples/freeRTOS-blink"
 
