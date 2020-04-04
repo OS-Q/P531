@@ -255,9 +255,7 @@ if upload_protocol == "espota":
             "See https://docs.platformio.org/page/platforms/"
             "espressif8266.html#over-the-air-ota-update\n")
     env.Replace(
-        UPLOADER=join(
-            platform.get_package_dir("framework-N11") or "",
-            "tools", "espota.py"),
+        UPLOADER=join(platform.get_package_dir("framework-N11") or "","tools", "espota.py"),
         UPLOADERFLAGS=["--debug", "--progress", "-i", "$UPLOAD_PORT"],
         UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS -f $SOURCE'
     )
