@@ -47,7 +47,7 @@
     "framework-N11": {
       "type": "framework",
       "optional": true,
-      "version": "~3.20603.0"
+      "version": ">=2.6.3"
     },
     "framework-N12": {
       "type": "framework",
