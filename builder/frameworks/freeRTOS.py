@@ -15,7 +15,7 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-N12")
-# assert isdir(FRAMEWORK_DIR)
+assert isdir(FRAMEWORK_DIR)
 
 env.Append(
     ASFLAGS=["-x", "assembler-with-cpp"],
@@ -78,7 +78,8 @@ env.Append(
     ],
 
     LIBPATH=[
-        join(FRAMEWORK_DIR, "lib")
+        join(FRAMEWORK_DIR, "lib"),
+        join(FRAMEWORK_DIR, "ld")
     ],
 
     LIBS=[
@@ -90,7 +91,7 @@ env.Append(
     BUILDERS=dict(
         ElfToBin=Builder(
             action=env.VerboseAction(" ".join([
-                join(platform.get_package_dir("tool-esptool"), "esptool"),
+                '"%s"' % join(platform.get_package_dir("tool-esptool"), "esptool"),
                 "-eo", "$SOURCE",
                 "-bo", "${TARGET}",
                 "-bm", "$BOARD_FLASH_MODE",
@@ -112,9 +113,10 @@ env.Append(
 # copy CCFLAGS to ASFLAGS (-x assembler-with-cpp mode)
 env.Append(ASFLAGS=env.get("CCFLAGS", [])[:])
 
-env.Replace(
-    LDSCRIPT_PATH=join(FRAMEWORK_DIR, "ld", "eagle.app.v6.ld"),
-)
+if not env.BoardConfig().get("build.ldscript", ""):
+    env.Replace(
+        LDSCRIPT_PATH=join(FRAMEWORK_DIR, "ld", "eagle.app.v6.ld"),
+    )
 
 # Extra flash images
 board_flash_size = int(env.BoardConfig().get("upload.maximum_size", 0))
