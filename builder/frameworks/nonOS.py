@@ -14,7 +14,7 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-N13")
-assert isdir(FRAMEWORK_DIR)
+# assert isdir(FRAMEWORK_DIR)
 
 env.Append(
     ASFLAGS=["-x", "assembler-with-cpp"],
