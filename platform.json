@@ -57,7 +57,7 @@
     "framework-N13": {
       "type": "framework",
       "optional": true,
-      "version": ">=2.1.1"
+      "version": ">=2.1.0"
     },
     "framework-N16": {
       "type": "framework",
