@@ -24,7 +24,7 @@
     "maximum_size": 1048576,
     "require_upload_port": true,
     "resetmethod": "ck",
-    "speed": 115200
+    "speed": 921600
   },
   "url": "http://www.OS-Q.com/H08/ESP8285",
   "vendor": "OS-Q"

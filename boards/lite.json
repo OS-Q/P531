@@ -20,14 +20,14 @@
     "freeRTOS",
     "nonOS"
   ],
-  "name": "Lite12",
+  "name": "Lite-12",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 1048576,
     "require_upload_port": true,
     "resetmethod": "nodemcu",
-    "speed": 115200
+    "speed": 921600
   },
-  "url": "http://www.OS-Q.com/H08/lite",
+  "url": "http://www.OS-Q.com/H08/Lite",
   "vendor": "OS-Q"
 }
