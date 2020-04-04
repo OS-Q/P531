@@ -52,7 +52,7 @@
     "framework-N12": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N12.git"
+      "version": ">=1.5.0"
     },
     "framework-N13": {
       "type": "framework",
