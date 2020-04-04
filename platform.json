@@ -1,10 +1,10 @@
 {
   "name": "H08",
   "title": "H08",
-  "description": "H08 : Espressif WiFi SoC ESP8266/ESP8285",
+  "description": "H08 : ESP8266/ESP8285 WiFi SoC ",
   "url": "https://espressif.com/",
   "homepage": "http://www.OS-Q.com/H08",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "engines": {
     "platformio": "<5"
   },
@@ -17,8 +17,8 @@
     "email": "qitas@qitas.cn",
     "url": "https://www.OS-Q.com"
 }],
-  "keywords": "OS-Q, ESP8266,ESP8285 ",
-  "version": "1.0.0",
+  "keywords": "H08, ESP8266,ESP8285 ",
+  "version": "2.4.0",
   "packageRepositories": [
     "http://182.61.61.133/link/toolchain/manifest.json",
     "http://182.61.61.133/link/framework/manifest.json",
@@ -79,7 +79,7 @@
     },
     "tool-esptoolpy": {
       "type": "uploader",
-      "version": "~1.20600.0"
+      "version": "~1.20800.0"
     },
     "tool-mkspiffs": {
       "type": "uploader",
