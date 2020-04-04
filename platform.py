@@ -5,7 +5,7 @@ class H08Platform(PlatformBase):
     def configure_default_packages(self, variables, targets):
         framework = variables.get("pioframework")
         if "arduino" not in framework:
-            self.packages['toolchain-xtensa']['version'] = "~1.40802.0"
+            self.packages['toolchain-xtensa']['version'] = "~2.40802.191122"
         if "buildfs" in targets:
             self.packages['tool-mkspiffs']['optional'] = False
         return PlatformBase.configure_default_packages(
