@@ -16,4 +16,4 @@ from SCons.Script import COMMAND_LINE_TARGETS, DefaultEnvironment, SConscript
 if "nobuild" not in COMMAND_LINE_TARGETS:
     SConscript(
         join(DefaultEnvironment().PioPlatform().get_package_dir(
-            "framework-N11"), "tools", "platformio-build.py"))
+            "framework-arduinoespressif8266"), "tools", "platformio-build.py"))
