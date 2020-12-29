@@ -28,6 +28,6 @@
     "resetmethod": "nodemcu",
     "speed": 921600
   },
-  "url": "http://www.OS-Q.com/H08/ESP12E",
+  "url": "http://www.OS-Q.com/P04/ESP12E",
   "vendor": "OS-Q"
 }

@@ -1,23 +1,23 @@
 {
-  "name": "H08",
-  "title": "H08",
+  "name": "P04",
+  "title": "P04",
   "description": "ESP8266/ESP8285 WiFi SoC ",
   "url": "https://espressif.com/",
-  "homepage": "http://www.OS-Q.com/H08",
+  "homepage": "http://www.OS-Q.com/P04",
   "license": "Apache-2.0",
   "engines": {
     "platformio": "<5"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OS-Q/H08.git"
+    "url": "https://github.com/OS-Q/P04.git"
   },
   "authors": [{
     "name": "qitas",
     "email": "qitas@qitas.cn",
     "url": "https://www.OS-Q.com"
 }],
-  "keywords": "H08,ESP8266,ESP8285",
+  "keywords": "P04,ESP8266,ESP8285",
   "version": "2.4.0",
   "packageRepositories": [
     "http://182.61.61.133/link/toolchain/manifest.json",
