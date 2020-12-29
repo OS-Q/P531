@@ -1,11 +1,13 @@
 {
   "build": {
+    "arduino": {
+      "ldscript": "eagle.flash.1m256.ld"
+    },
     "core": "esp8266",
     "extra_flags": "-DESP8266 -DARDUINO_ARCH_ESP8266 -DARDUINO_ESP8266_ESP01",
     "f_cpu": "80000000L",
     "f_flash": "40000000L",
     "flash_mode": "dout",
-    "ldscript": "eagle.flash.1m256.ld",
     "mcu": "esp8266",
     "variant": "generic"
   },
@@ -14,18 +16,17 @@
   ],
   "frameworks": [
     "arduino",
-    "simba",
-    "freeRTOS",
-    "nonOS"
+    "esp8266-rtos-sdk",
+    "esp8266-nonos-sdk"
   ],
-  "name": "ESP8285",
+  "name": "Generic ESP8285 Module",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 1048576,
     "require_upload_port": true,
     "resetmethod": "ck",
-    "speed": 921600
+    "speed": 115200
   },
-  "url": "http://www.OS-Q.com/P04/ESP8285",
-  "vendor": "OS-Q"
+  "url": "http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family",
+  "vendor": "Espressif"
 }

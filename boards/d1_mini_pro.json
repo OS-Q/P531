@@ -16,17 +16,16 @@
   ],
   "frameworks": [
     "arduino",
-    "simba",
-    "freeRTOS",
-    "nonOS"
+    "esp8266-rtos-sdk",
+    "esp8266-nonos-sdk"
   ],
-  "name": "mini Pro",
+  "name": "WeMos D1 mini Pro",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 16777216,
     "require_upload_port": true,
     "resetmethod": "nodemcu",
-    "speed": 921600
+    "speed": 115200
   },
   "url": "https://wiki.wemos.cc/products:d1:d1_mini",
   "vendor": "WEMOS"
