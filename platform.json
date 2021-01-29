@@ -1,11 +1,12 @@
 {
   "name": "P15",
   "title": "Platform P15",
-  "description": "Espressif Systems is a privately held fabless semiconductor company. They provide wireless communications and Wi-Fi chips which are widely used in mobile devices and the Internet of Things applications.",
+  "description": "Espressif Systems is a privately held fabless semiconductor company. ",
   "homepage": "https://espressif.com/",
   "license": "Apache-2.0",
   "keywords": [
     "dev-platform",
+    "OS-Q",
     "Wi-Fi",
     "Xtensa",
     "106Micro"
@@ -15,9 +16,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/platformio/platform-espressif8266.git"
+    "url": "https://github.com/OS-Q/P15.git"
   },
-  "version": "2.6.2",
+  "version": "2.6.3",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinoespressif8266",
@@ -52,26 +53,22 @@
     "framework-arduinoespressif8266": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": "~3.20704.0"
+      "version": "https://github.com/OS-Q/A15.git"
     },
     "framework-esp8266-rtos-sdk": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": ">=1.5.0-beta"
+      "version": "https://github.com/OS-Q/F15.git"
     },
     "framework-esp8266-nonos-sdk": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": ">=2.1.0"
+      "version": "https://github.com/OS-Q/N15.git"
     },
     "framework-simba": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": ">=7.0.0"
+      "version": "https://github.com/OS-Q/simba.git"
     },
     "tool-esptool": {
       "type": "uploader",
