@@ -10,13 +10,12 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [3.7]
         example:
-          - "examples/arduino-asyncudp"
           - "examples/arduino-blink"
-          - "examples/arduino-webserver"
           - "examples/arduino-wifiscan"
           - "examples/esp8266-nonos-sdk-blink"
           - "examples/esp8266-rtos-sdk-blink"
           - "examples/simba-blink"
+
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2

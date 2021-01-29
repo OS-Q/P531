@@ -3,17 +3,15 @@ environment:
 
   matrix:
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-blink"
-    - PLATFORMIO_PROJECT_DIR: "examples/arduino-asyncudp"
-    - PLATFORMIO_PROJECT_DIR: "examples/arduino-webserver"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-wifiscan"
-    # - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
-    - PLATFORMIO_PROJECT_DIR: "examples/nonOS-blink"
-    # - PLATFORMIO_PROJECT_DIR: "examples/freeRTOS-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/esp8266-rtos-sdk-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/esp8266-nonos-sdk-blink"
 
 
 install:
   - cmd: git submodule update --init --recursive
-  - cmd: SET PATH=C:\Python36\Scripts;%PATH%
+  - cmd: SET PATH=C:\Python37\Scripts;%PATH%
   - cmd: pip3 install -U https://github.com/OS-Q/S03/archive/master.zip
   - cmd: platformio platform install file://.
 
