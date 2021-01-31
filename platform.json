@@ -1,7 +1,7 @@
 {
   "name": "P15",
   "title": "Platform P15",
-  "description": "Espressif Systems is a privately held fabless semiconductor company. ",
+  "description": "Espressif wifi SoC.",
   "homepage": "https://espressif.com/",
   "license": "Apache-2.0",
   "keywords": [
@@ -40,7 +40,7 @@
       "script": "builder/frameworks/esp8266-nonos-sdk.py",
       "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities such as data reception/transmission over Wi-Fi, TCP/IP stack functions, hardware interface functions and basic system management functions",
       "homepage": "https://github.com/espressif/ESP8266_NONOS_SDK",
-      "title": "ESP8266 Non-OS SDK"
+      "title": "ESP8266 SDK"
     }
   },
   "packages": {
