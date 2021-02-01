@@ -17,7 +17,7 @@
   "frameworks": [
     "arduino",
     "simba",
-    "rtos",
+    "freertos",
     "native"
   ],
   "name": "Espressif Generic ESP8266 ESP-01 512k",
