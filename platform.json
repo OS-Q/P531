@@ -28,17 +28,17 @@
       "package": "simba",
       "script": "builder/frameworks/simba.py"
     },
-    "esp8266-rtos-sdk": {
+    "freeRTOS": {
       "package": "F15",
-      "script": "builder/frameworks/esp8266-rtos-sdk.py",
+      "script": "builder/frameworks/freeRTOS.py",
       "description": "ESP8266 SDK based on FreeRTOS, a truly free professional grade RTOS for microcontrollers",
       "homepage": "https://github.com/espressif/ESP8266_RTOS_SDK",
       "title": "ESP8266 RTOS SDK"
     },
-    "esp8266-nonos-sdk": {
+    "native": {
       "package": "N15",
-      "script": "builder/frameworks/esp8266-nonos-sdk.py",
-      "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities such as data reception/transmission over Wi-Fi, TCP/IP stack functions, hardware interface functions and basic system management functions",
+      "script": "builder/frameworks/native.py",
+      "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities",
       "homepage": "https://github.com/espressif/ESP8266_NONOS_SDK",
       "title": "ESP8266 SDK"
     }

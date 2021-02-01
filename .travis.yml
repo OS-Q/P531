@@ -6,8 +6,8 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
   - PLATFORMIO_PROJECT_DIR=examples/arduino-wifiscan
   - PLATFORMIO_PROJECT_DIR=examples/simba-blink
-  - PLATFORMIO_PROJECT_DIR=examples/esp8266-rtos-sdk-blink
-  - PLATFORMIO_PROJECT_DIR=examples/esp8266-nonos-sdk-blink
+  - PLATFORMIO_PROJECT_DIR=examples/freeRTOS-blink
+  - PLATFORMIO_PROJECT_DIR=examples/native-blink
 
 install:
   - pip install -U https://github.com/OS-Q/S03/archive/master.zip
