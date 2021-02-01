@@ -18,25 +18,25 @@
     "type": "git",
     "url": "https://github.com/OS-Q/P15.git"
   },
-  "version": "2.6.3",
+  "version": "2.6.4",
   "frameworks": {
     "arduino": {
-      "package": "framework-arduinoespressif8266",
+      "package": "A15",
       "script": "builder/frameworks/arduino.py"
     },
     "simba": {
-      "package": "framework-simba",
+      "package": "simba",
       "script": "builder/frameworks/simba.py"
     },
     "esp8266-rtos-sdk": {
-      "package": "framework-esp8266-rtos-sdk",
+      "package": "F15",
       "script": "builder/frameworks/esp8266-rtos-sdk.py",
       "description": "ESP8266 SDK based on FreeRTOS, a truly free professional grade RTOS for microcontrollers",
       "homepage": "https://github.com/espressif/ESP8266_RTOS_SDK",
       "title": "ESP8266 RTOS SDK"
     },
     "esp8266-nonos-sdk": {
-      "package": "framework-esp8266-nonos-sdk",
+      "package": "N15",
       "script": "builder/frameworks/esp8266-nonos-sdk.py",
       "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities such as data reception/transmission over Wi-Fi, TCP/IP stack functions, hardware interface functions and basic system management functions",
       "homepage": "https://github.com/espressif/ESP8266_NONOS_SDK",
@@ -50,22 +50,22 @@
       "version": "~2.40802.0",
       "optionalVersions": ["~1.40802.0"]
     },
-    "framework-arduinoespressif8266": {
+    "A15": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/A15.git"
     },
-    "framework-esp8266-rtos-sdk": {
+    "F15": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/F15.git"
     },
-    "framework-esp8266-nonos-sdk": {
+    "N15": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/N15.git"
     },
-    "framework-simba": {
+    "simba": {
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/simba.git"
