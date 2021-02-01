@@ -1,5 +1,5 @@
 #include "esp_common.h"
-#include "freertos/task.h"
+#include "freeRTOS/task.h"
 #include "gpio.h"
 
 /******************************************************************************

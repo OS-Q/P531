@@ -16,7 +16,7 @@
   ],
   "frameworks": [
     "arduino",
-    "freertos",
+    "rtos",
     "native"
   ],
   "name": "Generic ESP8285 Module",

@@ -28,9 +28,9 @@
       "package": "simba",
       "script": "builder/frameworks/simba.py"
     },
-    "freertos": {
+    "rtos": {
       "package": "F15",
-      "script": "builder/frameworks/freertos.py",
+      "script": "builder/frameworks/rtos.py",
       "title": "ESP8266 RTOS SDK"
     },
     "native": {

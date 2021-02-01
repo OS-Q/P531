@@ -17,7 +17,7 @@
   "frameworks": [
     "arduino",
     "simba",
-    "freertos",
+    "rtos",
     "native"
   ],
   "name": "Espressif ESP8266 ESP-12E",

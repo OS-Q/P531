@@ -330,7 +330,7 @@ elif upload_protocol == "esptool":
 
     upload_actions = [
         env.VerboseAction(env.AutodetectUploadPort,
-                          "Looking for upload port..."),
+                            "Looking for upload port..."),
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
@@ -366,7 +366,7 @@ env.AddPlatformTarget(
 
 if any("-Wl,-T" in f for f in env.get("LINKFLAGS", [])):
     print("Warning! '-Wl,-T' option for specifying linker scripts is deprecated. "
-          "Please use 'board_build.ldscript' option in your 'platformio.ini' file.")
+            "Please use 'board_build.ldscript' option in your 'platformio.ini' file.")
 
 #
 # Default targets

@@ -16,7 +16,7 @@
   ],
   "frameworks": [
     "arduino",
-    "freertos",
+    "rtos",
     "native"
   ],
   "name": "WeMos D1 mini Pro",
