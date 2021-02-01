@@ -16,7 +16,7 @@
   ],
   "frameworks": [
     "arduino",
-    "freeRTOS",
+    "freertos",
     "native"
   ],
   "name": "WEMOS D1 R1",

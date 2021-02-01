@@ -16,7 +16,7 @@
   ],
   "frameworks": [
     "arduino",
-    "freeRTOS",
+    "freertos",
     "native"
   ],
   "name": "Espressif Generic ESP8266 ESP-01 1M",

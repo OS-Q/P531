@@ -13,7 +13,7 @@ jobs:
           - "examples/arduino-blink"
           - "examples/arduino-wifiscan"
           - "examples/native-blink"
-          - "examples/freeRTOS-blink"
+          - "examples/freertos-blink"
           - "examples/simba-blink"
 
     runs-on: ${{ matrix.os }}

@@ -23,7 +23,7 @@
   "frameworks": [
     "arduino",
     "simba",
-    "freeRTOS",
+    "freertos",
     "native"
   ],
   "name": "NodeMCU 1.0 (ESP-12E Module)",

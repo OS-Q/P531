@@ -28,11 +28,9 @@
       "package": "simba",
       "script": "builder/frameworks/simba.py"
     },
-    "freeRTOS": {
+    "freertos": {
       "package": "F15",
-      "script": "builder/frameworks/freeRTOS.py",
-      "description": "ESP8266 SDK based on FreeRTOS, a truly free professional grade RTOS for microcontrollers",
-      "homepage": "https://github.com/espressif/ESP8266_RTOS_SDK",
+      "script": "builder/frameworks/freertos.py",
       "title": "ESP8266 RTOS SDK"
     },
     "native": {

@@ -270,7 +270,7 @@ upload_actions = []
 # Compatibility with old OTA configurations
 if (upload_protocol != "espota"
         and re.match(r"\"?((([0-9]{1,3}\.){3}[0-9]{1,3})|[^\\/]+\.local)\"?$",
-                     env.get("UPLOAD_PORT", ""))):
+                    env.get("UPLOAD_PORT", ""))):
     upload_protocol = "espota"
     sys.stderr.write(
         "Warning! We have just detected `upload_port` as IP address or host "
