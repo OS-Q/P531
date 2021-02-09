@@ -6,16 +6,15 @@
 
 ### [项目简介](https://github.com/OS-Q/P51/wiki)
 
-[P51](https://github.com/OS-Q/P51)，适用于[ESP8266](https://github.com/SoCXin/ESP8266) 开发。
+[P51](https://github.com/OS-Q/P51)，适用于[ESP8266] (https://github.com/SoCXin/ESP8266) 开发
 
 * [文档](http://docs.OS-Q.com/page/platforms/)
 
-#### 关联资源仓库
+#### 关联资源
 
-* [A12](https://github.com/OS-Q/A12)
-* [N12](https://github.com/OS-Q/N12)
-* [B12](https://github.com/OS-Q/B12)
-* [T12](https://github.com/OS-Q/T12)
+* [A51](https://github.com/OS-Q/A51)
+* [N51](https://github.com/OS-Q/N51)
+* [B51](https://github.com/OS-Q/B51)
+* [T51](https://github.com/OS-Q/T51)
 
 ### [Q = (OpenSource & OperatingSystem) ](http://www.OS-Q.com)
-

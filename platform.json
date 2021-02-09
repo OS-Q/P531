@@ -40,10 +40,10 @@
       "title": "ESP8266 RTOS SDK"
     },
     "native": {
-      "package": "N15",
+      "package": "N51",
       "script": "builder/frameworks/native.py",
       "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities",
-      "homepage": "https://github.com/espressif/ESP8266_NONOS_SDK",
+      "homepage": "https://www.OS-Q.com/N51",
       "title": "ESP8266 SDK"
     }
   },
@@ -58,10 +58,10 @@
       "optional": true,
       "version": "https://github.com/OS-Q/F15.git"
     },
-    "N15": {
+    "N51": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N15.git"
+      "version": "https://github.com/OS-Q/N51.git"
     },
     "simba": {
       "type": "framework",

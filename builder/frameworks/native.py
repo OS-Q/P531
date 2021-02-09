@@ -1,10 +1,3 @@
-"""
-ESP8266 NONOS SDK
-
-ESP8266 SDK C/C++ only
-
-https://github.com/espressif/ESP8266_NONOS_SDK
-"""
 
 from os.path import isdir, join
 
@@ -13,7 +6,7 @@ from SCons.Script import Builder, DefaultEnvironment
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 
-FRAMEWORK_DIR = platform.get_package_dir("N15")
+FRAMEWORK_DIR = platform.get_package_dir("N51")
 assert isdir(FRAMEWORK_DIR)
 
 env.Append(
