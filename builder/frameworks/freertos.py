@@ -1,11 +1,3 @@
-"""
-ESP8266 RTOS SDK
-
-ESP8266 SDK based on FreeRTOS, a truly free professional grade RTOS for
-microcontrollers
-
-https://github.com/espressif/ESP8266_RTOS_SDK
-"""
 
 from os.path import isdir, join
 
@@ -14,7 +6,7 @@ from SCons.Script import Builder, DefaultEnvironment
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 
-FRAMEWORK_DIR = platform.get_package_dir("F15")
+FRAMEWORK_DIR = platform.get_package_dir("F51")
 assert isdir(FRAMEWORK_DIR)
 
 env.Append(

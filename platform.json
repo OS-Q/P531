@@ -27,7 +27,7 @@
 ],
   "frameworks": {
     "arduino": {
-      "package": "A15",
+      "package": "A51",
       "script": "builder/frameworks/arduino.py"
     },
     "simba": {
@@ -35,7 +35,7 @@
       "script": "builder/frameworks/simba.py"
     },
     "freertos": {
-      "package": "F15",
+      "package": "F51",
       "script": "builder/frameworks/freertos.py",
       "title": "ESP8266 RTOS SDK"
     },
@@ -48,15 +48,15 @@
     }
   },
   "packages": {
-    "A15": {
+    "A51": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/A15.git"
+      "version": "https://github.com/OS-Q/A51.git"
     },
-    "F15": {
+    "F51": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/F15.git"
+      "version": "https://github.com/OS-Q/F51.git"
     },
     "N51": {
       "type": "framework",

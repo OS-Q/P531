@@ -6,7 +6,7 @@
 
 ### [项目简介](https://github.com/OS-Q/P51/wiki)
 
-[P51](https://github.com/OS-Q/P51)，适用于[ESP8266] (https://github.com/SoCXin/ESP8266) 开发
+[P51](https://github.com/OS-Q/P51)，适用于[ESP8266](https://github.com/SoCXin/ESP8266) 开发
 
 * [文档](http://docs.OS-Q.com/page/platforms/)
 
