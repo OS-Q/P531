@@ -1,8 +1,8 @@
 {
-  "name": "P15",
-  "title": "Platform P15",
-  "description": "Espressif wifi SoC.",
-  "homepage": "https://espressif.com/",
+  "name": "P51",
+  "title": "Platform P51",
+  "description": "Espressif wifi SoC",
+  "homepage": "https://www.OS-Q.com/",
   "license": "Apache-2.0",
   "keywords": [
     "dev-platform",
@@ -14,11 +14,17 @@
   "engines": {
     "platformio": "^5"
   },
+  "version": "2.6.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OS-Q/P15.git"
+    "url": "https://github.com/OS-Q/P51.git"
   },
-  "version": "2.6.4",
+  "packageRepositories": [
+    "http://182.61.61.133/link/toolchain/manifest.json",
+    "http://182.61.61.133/link/framework/manifest.json",
+    "http://182.61.61.133/link/toolchain/openocd.json",
+    "http://182.61.61.133/link/platformio.json"
+],
   "frameworks": {
     "arduino": {
       "package": "A15",
@@ -42,12 +48,6 @@
     }
   },
   "packages": {
-    "toolchain-xtensa": {
-      "type": "toolchain",
-      "owner": "platformio",
-      "version": "~2.40802.0",
-      "optionalVersions": ["~1.40802.0"]
-    },
     "A15": {
       "type": "framework",
       "optional": true,
@@ -67,6 +67,12 @@
       "type": "framework",
       "optional": true,
       "version": "https://github.com/OS-Q/simba.git"
+    },
+    "toolchain-xtensa": {
+      "type": "toolchain",
+      "owner": "platformio",
+      "version": "~2.40802.0",
+      "optionalVersions": ["~1.40802.0"]
     },
     "tool-esptool": {
       "type": "uploader",

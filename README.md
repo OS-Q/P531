@@ -1,14 +1,21 @@
-﻿# [P15](https://github.com/OS-Q/P15)
+﻿# [P51](https://github.com/OS-Q/P51)
 
-[![Build Status](https://github.com/OS-Q/P15/workflows/P15/badge.svg)](https://github.com/OS-Q/P15/actions)
-[![Build Status](https://travis-ci.com/OS-Q/P15.svg?branch=master)](https://travis-ci.com/OS-Q/P15)
+[![Build Status](https://github.com/OS-Q/P51/workflows/P51/badge.svg)](https://github.com/OS-Q/P51/actions)
+[![Build Status](https://travis-ci.com/OS-Q/P51.svg?branch=master)](https://travis-ci.com/OS-Q/P51)
 [![Build status](https://ci.appveyor.com/api/projects/status/1aabe5q9ea8sjptj?svg=true)](https://ci.appveyor.com/project/Qitas/p15)
 
-### [项目简介](https://github.com/OS-Q/P15/wiki)
+### [项目简介](https://github.com/OS-Q/P51/wiki)
 
-[P15](https://github.com/OS-Q/P15)，基于[PlatformIO](https://github.com/platformio/platformio-core)开发框架，适用于[ESP8266](https://github.com/SoCXin/ESP8266) 芯片开发。
+[P51](https://github.com/OS-Q/P51)，适用于[ESP8266](https://github.com/SoCXin/ESP8266) 开发。
 
 * [文档](http://docs.OS-Q.com/page/platforms/)
+
+#### 关联资源仓库
+
+* [A12](https://github.com/OS-Q/A12)
+* [N12](https://github.com/OS-Q/N12)
+* [B12](https://github.com/OS-Q/B12)
+* [T12](https://github.com/OS-Q/T12)
 
 ### [Q = (OpenSource & OperatingSystem) ](http://www.OS-Q.com)
 

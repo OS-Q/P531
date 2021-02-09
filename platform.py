@@ -1,7 +1,6 @@
 from platformio.managers.platform import PlatformBase
 
-
-class P15Platform(PlatformBase):
+class P51Platform(PlatformBase):
 
     def configure_default_packages(self, variables, targets):
         framework = variables.get("pioframework", [])
