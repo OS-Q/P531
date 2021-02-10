@@ -4,13 +4,11 @@
 [![Build Status](https://travis-ci.com/OS-Q/P51.svg?branch=master)](https://travis-ci.com/OS-Q/P51)
 [![Build status](https://ci.appveyor.com/api/projects/status/1aabe5q9ea8sjptj?svg=true)](https://ci.appveyor.com/project/Qitas/p15)
 
-### [项目简介](https://github.com/OS-Q/P51/wiki)
+### [简介](https://github.com/OS-Q/P51/wiki)
 
-[P51](https://github.com/OS-Q/P51)，适用于[ESP8266](https://github.com/SoCXin/ESP8266) 开发
+[P51](https://github.com/OS-Q/P51)，适用于[ESP8266](https://github.com/SoCXin/ESP8266) 开发。
 
-* [文档](http://docs.OS-Q.com/page/platforms/)
-
-#### 关联资源
+#### 关联工程
 
 * [A51](https://github.com/OS-Q/A51)
 * [N51](https://github.com/OS-Q/N51)
