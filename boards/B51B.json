@@ -20,7 +20,7 @@
     "freertos",
     "native"
   ],
-  "name": "B51B ESP8266 ESP-01 1M",
+  "name": "B51B ESP8266 1M",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 1048576,

@@ -20,7 +20,7 @@
     "freertos",
     "native"
   ],
-  "name": "WeMos D1 mini Pro",
+  "name": "B51F ESP8266 16M",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 16777216,
@@ -28,6 +28,6 @@
     "resetmethod": "nodemcu",
     "speed": 115200
   },
-  "url": "https://wiki.wemos.cc/products:d1:d1_mini",
+  "url": "https://wiki.wemos.cc/products:B51D:d1_mini",
   "vendor": "WEMOS"
 }
