@@ -16,6 +16,7 @@
   ],
   "frameworks": [
     "arduino",
+    "simba",
     "freertos",
     "native"
   ],

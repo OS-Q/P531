@@ -4,27 +4,21 @@
   "description": "Espressif wifi SoC",
   "homepage": "https://www.OS-Q.com/",
   "license": "Apache-2.0",
+  "version": "2.6.4",
+  "engines": {
+    "platformio": "^5"
+  },
   "keywords": [
     "dev-platform",
     "OS-Q",
     "Wi-Fi",
     "Xtensa",
-    "106Micro"
+    "Arduino"
   ],
-  "engines": {
-    "platformio": "^5"
-  },
-  "version": "2.6.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/OS-Q/P51.git"
   },
-  "packageRepositories": [
-    "http://182.61.61.133/link/toolchain/manifest.json",
-    "http://182.61.61.133/link/framework/manifest.json",
-    "http://182.61.61.133/link/toolchain/openocd.json",
-    "http://182.61.61.133/link/platformio.json"
-],
   "frameworks": {
     "arduino": {
       "package": "A51",

@@ -16,10 +16,11 @@
   ],
   "frameworks": [
     "arduino",
+    "simba",
     "freertos",
     "native"
   ],
-  "name": "Generic ESP8285 Module",
+  "name": "B51A ESP8285 Module",
   "upload": {
     "maximum_ram_size": 81920,
     "maximum_size": 1048576,
