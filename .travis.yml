@@ -4,9 +4,7 @@ python:
 
 env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
-  - PLATFORMIO_PROJECT_DIR=examples/arduino-wifiscan
   - PLATFORMIO_PROJECT_DIR=examples/simba-blink
-  - PLATFORMIO_PROJECT_DIR=examples/freertos-blink
   - PLATFORMIO_PROJECT_DIR=examples/native-blink
 
 install:
@@ -17,4 +15,8 @@ script:
   - platformio run -d $PLATFORMIO_PROJECT_DIR
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - tang@qitas.cn
+    on_success: never   # default: change
+    on_failure: always  # default: always

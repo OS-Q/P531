@@ -21,10 +21,8 @@ jobs:
         python-version: [3.7]
         example:
           - "examples/arduino-blink"
-          - "examples/arduino-wifiscan"
           - "examples/native-blink"
           - "examples/simba-blink"
-          - "examples/freertos-blink"
 
     runs-on: ${{ matrix.os }}
     steps:

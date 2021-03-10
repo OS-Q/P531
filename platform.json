@@ -22,23 +22,19 @@
   "frameworks": {
     "arduino": {
       "package": "A51A",
-      "script": "builder/frameworks/arduino.py"
+      "script": "builder/extend/arduino.py"
     },
     "simba": {
       "package": "simba",
-      "script": "builder/frameworks/simba.py"
+      "script": "builder/extend/simba.py"
     },
     "freertos": {
       "package": "F51A",
-      "script": "builder/frameworks/freertos.py",
-      "title": "ESP8266 RTOS SDK"
+      "script": "builder/extend/freertos.py"
     },
     "native": {
       "package": "E51A",
-      "script": "builder/frameworks/native.py",
-      "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities",
-      "homepage": "https://www.OS-Q.com/E51A",
-      "title": "ESP8266 SDK"
+      "script": "builder/extend/native.py"
     }
   },
   "packages": {
