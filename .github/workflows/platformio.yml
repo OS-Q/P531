@@ -20,12 +20,11 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [3.7]
         example:
-          - "examples/espidf-arduino-blink"
-          - "examples/espidf-arduino-wifiscan"
-          - "examples/espidf-exceptions"
-          - "examples/espidf-peripherals-uart"
-          - "examples/pumbaa-blink"
+          - "examples/arduino-blink"
+          - "examples/arduino-wifiscan"
+          - "examples/native-blink"
           - "examples/simba-blink"
+          - "examples/freertos-blink"
 
     runs-on: ${{ matrix.os }}
     steps:
