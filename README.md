@@ -1,5 +1,7 @@
 ﻿# [P51](https://github.com/OS-Q/P51)
 
+[![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
+
 [![Build Status](https://github.com/OS-Q/P51/workflows/macos/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/macos.yml)
 [![Build Status](https://github.com/OS-Q/P51/workflows/ubuntu/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/ubuntu.yml)
 [![Build Status](https://github.com/OS-Q/P51/workflows/windows/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/windows.yml)
@@ -11,8 +13,8 @@
 
 [P51](https://github.com/OS-Q/P51) 适用于[ESP8266](https://www.espressif.com/zh-hans/products/socs/esp8266) 开发
 
- #### 基本特性
+ #### [平台特性](https://github.com/SoCXin/ESP8266)
 
-* Wi-Fi
+* Wi-Fi SoC
 
-### [Q = (OpenSource & OperatingSystem) ](http://www.OS-Q.com)
+### [源圈 OS-Q (OpenSource & QA) ](http://www.OS-Q.com)
