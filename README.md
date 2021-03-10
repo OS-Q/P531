@@ -11,10 +11,17 @@
 
 ### [简介](https://github.com/OS-Q/P51/wiki)
 
-[P51](https://github.com/OS-Q/P51) 适用于[ESP8266](https://www.espressif.com/zh-hans/products/socs/esp8266) 开发
+[P51](https://github.com/OS-Q/P51) 用于 [ESP8266](https://www.espressif.com/zh-hans/products/socs/esp8266) 开发
 
  #### [平台特性](https://github.com/SoCXin/ESP8266)
 
-* Wi-Fi SoC
+Wi-Fi SoC 拥有大量开源可用资源
 
-### [源圈 OS-Q (OpenSource & QA) ](http://www.OS-Q.com)
+* 支持 Arduino [![Build Status](https://github.com/OS-Q/A51A/workflows/macos/badge.svg)](https://github.com/OS-Q/A51A/actions/workflows/macos.yml)
+[![Build Status](https://github.com/OS-Q/A51A/workflows/ubuntu/badge.svg)](https://github.com/OS-Q/A51A/actions/workflows/ubuntu.yml)
+[![Build Status](https://github.com/OS-Q/A51A/workflows/windows/badge.svg)](https://github.com/OS-Q/A51A/actions/workflows/windows.yml)
+* 支持 freeRTOS [![Build Status](https://github.com/OS-Q/F51A/workflows/macos/badge.svg)](https://github.com/OS-Q/F51A/actions/workflows/macos.yml)
+[![Build Status](https://github.com/OS-Q/F51A/workflows/ubuntu/badge.svg)](https://github.com/OS-Q/F51A/actions/workflows/ubuntu.yml)
+[![Build Status](https://github.com/OS-Q/F51A/workflows/windows/badge.svg)](https://github.com/OS-Q/F51A/actions/workflows/windows.yml)
+
+### [源圈 OS-Q (Open Source & QA) ](http://www.OS-Q.com)
