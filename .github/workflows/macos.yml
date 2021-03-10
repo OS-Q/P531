@@ -23,6 +23,7 @@ jobs:
           - "examples/arduino"
           - "examples/native"
           - "examples/simba"
+          - "examples/template-A"
 
     steps:
       - uses: actions/checkout@v2
