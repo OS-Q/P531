@@ -21,7 +21,7 @@
   },
   "frameworks": {
     "arduino": {
-      "package": "A51",
+      "package": "A51A",
       "script": "builder/frameworks/arduino.py"
     },
     "simba": {
@@ -29,33 +29,33 @@
       "script": "builder/frameworks/simba.py"
     },
     "freertos": {
-      "package": "F51",
+      "package": "F51A",
       "script": "builder/frameworks/freertos.py",
       "title": "ESP8266 RTOS SDK"
     },
     "native": {
-      "package": "N51",
+      "package": "E51A",
       "script": "builder/frameworks/native.py",
       "description": "The non-OS SDK provides a set of application programming interfaces (APIs) for core ESP8266 functionalities",
-      "homepage": "https://www.OS-Q.com/N51",
+      "homepage": "https://www.OS-Q.com/E51A",
       "title": "ESP8266 SDK"
     }
   },
   "packages": {
-    "A51": {
+    "A51A": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/A51.git"
+      "version": "https://github.com/OS-Q/A51A.git"
     },
-    "F51": {
+    "F51A": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/F51.git"
+      "version": "https://github.com/OS-Q/F51A.git"
     },
-    "N51": {
+    "E51A": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/N51.git"
+      "version": "https://github.com/OS-Q/E51A.git"
     },
     "simba": {
       "type": "framework",
