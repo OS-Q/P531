@@ -1,6 +1,6 @@
 {
   "name": "P51",
-  "title": "Platform P51",
+  "title": "Platform P51 (ESP8266)",
   "description": "Espressif wifi SoC",
   "homepage": "https://www.OS-Q.com/",
   "license": "Apache-2.0",
@@ -22,7 +22,7 @@
   "frameworks": {
     "arduino": {
       "package": "A51A",
-      "script": "builder/extend/arduino.py"
+      "script": "builder/extend/A51A.py"
     },
     "simba": {
       "package": "simba",
@@ -30,11 +30,11 @@
     },
     "freertos": {
       "package": "E51B",
-      "script": "builder/extend/freertos.py"
+      "script": "builder/extend/E51B.py"
     },
     "native": {
       "package": "E51A",
-      "script": "builder/extend/native.py"
+      "script": "builder/extend/E51A.py"
     }
   },
   "packages": {

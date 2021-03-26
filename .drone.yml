@@ -1,0 +1,16 @@
+kind: pipeline
+name: default
+
+steps:
+- name: P51
+  image: python:3
+  commands:
+  - apt update
+  - apt install -y git
+  - git submodule update --init --recursive
+  - pip install -U https://github.com/OS-Q/S03/archive/master.zip
+  - qio platform install file://.
+  - qio run -d examples/simba
+  - qio run -d examples/arduino
+  - qio run -d examples/native
+  - qio run -d examples/template-A
