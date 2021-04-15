@@ -122,6 +122,7 @@ jobs:
       - name: commit
         working-directory: OSQ
         run: |
+          git checkout gh
           chmod +x ./update.sh
           sudo bash ./update.sh
 
@@ -175,3 +176,15 @@ jobs:
           convert_markdown: true
           attachments: README.txt,P51.zip
           body: file://README.md
+
+      - name: notification
+        uses: stopstopstop/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}
+          message: ${{steps.rebuild.outputs.status}}
+
