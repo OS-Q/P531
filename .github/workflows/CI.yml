@@ -26,7 +26,6 @@ jobs:
           - "examples/arduino"
           - "examples/native"
           - "examples/simba"
-          - "examples/template-A"
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -60,10 +59,3 @@ jobs:
         run: |
           pio run -d ${{ matrix.examples }}
           echo "::set-output name=status::success"
-
-      - name: Upload
-        if: steps.build.outputs.status == 'success' && matrix.tool == 'QIO'
-        uses: actions/upload-artifact@v2
-        with:
-          name: P51
-          path: ${{ matrix.examples }}

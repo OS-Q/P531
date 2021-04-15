@@ -18,7 +18,6 @@ jobs:
           - "examples/arduino"
           - "examples/native"
           - "examples/simba"
-          - "examples/template-A"
 
     steps:
     - uses: actions/checkout@v2
@@ -103,7 +102,6 @@ jobs:
           - "examples/arduino"
           - "examples/native"
           - "examples/simba"
-          - "examples/template-A"
 
     steps:
       - uses: actions/checkout@v2
@@ -123,9 +121,11 @@ jobs:
           pip install -U https://github.com/OS-Q/S03/archive/master.zip
           wget https://github.com/OS-Q/P51/releases/latest/download/P51.zip -O P51.zip
           wget https://github.com/OS-Q/P51/releases/latest/download/README.txt -O README.txt
-          qio platform install P51.zip
+          qio platform install file://./P51.zip
+          echo "::set-output name=status::success"
 
       - name: Build
+        if: steps.getgh.outputs.status == 'success' && !cancelled()
         run: |
           qio run -d ${{ matrix.examples }}
 
@@ -143,6 +143,7 @@ jobs:
           echo "::set-output name=status::success"
 
       - name: Send Mail
+        if: steps.OSS.outputs.status == 'success' && !cancelled()
         uses: stopstopstop/mail-action@master
         with:
           server_address:  smtp.gmail.com
@@ -156,5 +157,3 @@ jobs:
           content_type: text/html
           convert_markdown: true
           body: file://README.txt
-          attachments:
-            ${{ env.FIRMWARE }}/P51.zip

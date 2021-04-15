@@ -22,19 +22,19 @@
   "frameworks": {
     "arduino": {
       "package": "A51A",
-      "script": "builder/extend/A51A.py"
+      "script": "extend/A51A.py"
     },
     "simba": {
       "package": "simba",
-      "script": "builder/extend/simba.py"
+      "script": "extend/simba.py"
     },
     "freertos": {
       "package": "E51B",
-      "script": "builder/extend/E51B.py"
+      "script": "extend/E51B.py"
     },
     "native": {
       "package": "E51A",
-      "script": "builder/extend/E51A.py"
+      "script": "extend/E51A.py"
     }
   },
   "packages": {
