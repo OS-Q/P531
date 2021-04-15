@@ -2,11 +2,10 @@ name: nightly
 
 on:
   schedule:
-    - cron: '0 15 * * *'
+    - cron: '0 12 * * *'
 
 jobs:
   build:
-    if: github.repository == 'OS-Q/P51'
     strategy:
       fail-fast: false
       matrix:
@@ -63,3 +62,61 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}/${{ matrix.os }}/${{ matrix.package }}/${{ matrix.python }}/${{ matrix.examples }}
           message: ${{steps.build.outputs.status}}
+
+  platformio:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: [3.7,3.9]
+        package:
+          - "QIO"
+          - "PIO"
+        example:
+          - "examples/arduino-asyncudp"
+          - "examples/arduino-blink"
+          - "examples/arduino-webserver"
+          - "examples/arduino-wifiscan"
+          - "examples/esp8266-nonos-sdk-blink"
+          - "examples/esp8266-rtos-sdk-blink"
+          - "examples/simba-blink"
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: platformio/platform-espressif8266
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: espressif8266
+
+      - name: Install dependencies
+        if: matrix.package == 'QIO'
+        working-directory: espressif8266
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/platformio/platformio/archive/develop.zip
+
+      - name: Install dependencies
+        if: matrix.package == 'PIO'
+        working-directory: espressif8266
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/platformio/platformio/archive/develop.zip
+          pio platform install file://.
+
+
+      - name: Build examples
+        working-directory: espressif8266
+        run: |
+          pio run -d ${{ matrix.example }}
