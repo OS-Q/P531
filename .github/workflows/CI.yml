@@ -91,6 +91,8 @@ jobs:
           cp -rf ../extend .
           cp -f ../link.json .
           cp -f ../link.py .
+          git config --global user.email "qita@qitas.cn"
+          git config --global user.name "qita"
           git add .
           git commit -am "update by github action"
           git push
