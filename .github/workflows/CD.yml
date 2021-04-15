@@ -129,12 +129,12 @@ jobs:
         run: |
           qio run -d ${{ matrix.examples }}
 
-        - name: Setup OSS
-          uses: stopstopstop/ossutil-action@master
-          with:
-            endpoint: ${{ secrets.OSS_ENDPOINT }}
-            access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
-            access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+      - name: Setup OSS
+        uses: stopstopstop/ossutil-action@master
+        with:
+          endpoint: ${{ secrets.OSS_ENDPOINT }}
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
       - name: Upload To OSS
         id: OSS
