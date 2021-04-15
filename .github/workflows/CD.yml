@@ -150,4 +150,5 @@ jobs:
           cc: ${{github.event.pusher.email}}
           content_type: text/html
           convert_markdown: true
-          body: file://README.txt
+          attachments: README.txt,P51.zip
+          body: file://README.md
