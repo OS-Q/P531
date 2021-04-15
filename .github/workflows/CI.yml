@@ -59,6 +59,17 @@ jobs:
           pio run -d ${{ matrix.examples }}
           echo "::set-output name=status::success"
 
+      - name: notification
+        uses: stopstopstop/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.workflow}}
+          message: ${{steps.build.outputs.status}}
+
   update:
     needs:
       - build
