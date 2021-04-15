@@ -1,4 +1,4 @@
-﻿# P51 for ESP8266/ESP8285 SoC
+﻿# P51 for ESP8266 SoC
 
 [![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
 
@@ -12,6 +12,6 @@
 
 ### [简介](https://github.com/OS-Q/P51/wiki)
 
-[P51](https://github.com/OS-Q/P51) 用于 [ESP8266](https://www.espressif.com/zh-hans/products/socs/esp8266) 开发
+[P51](https://github.com/OS-Q/P51) 适配 [ESP8266/ESP8285](https://www.espressif.com/zh-hans/products/socs/esp8266) SoC 开发
 
 ### [源圈 OS-Q (Open Source & QA) ](http://www.OS-Q.com)

@@ -4,7 +4,7 @@
   "description": "Espressif wifi SoC",
   "homepage": "https://www.OS-Q.com/",
   "license": "Apache-2.0",
-  "version": "2.6.4",
+  "version": "2.6.3",
   "engines": {
     "platformio": "^5"
   },
