@@ -122,6 +122,7 @@ jobs:
       - name: commit
         working-directory: OSQ
         run: |
+          git fetch
           git checkout origin/gh
           chmod +x ./update.sh
           sudo bash ./update.sh
