@@ -61,5 +61,5 @@ jobs:
           port: 1883
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.workflow}}
+          topic: ${{github.repository}}/${{github.workflow}}/${{ matrix.os }}/${{ matrix.package }}/${{ matrix.python }}/${{ matrix.examples }}
           message: ${{steps.build.outputs.status}}
