@@ -10,25 +10,16 @@ jobs:
   check:
     runs-on: ubuntu-latest
     if: github.repository == 'OS-Q/P51'
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: [3.9]
-        examples:
-          - "examples/arduino"
-          - "examples/native"
-          - "examples/simba"
-
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: "recursive"
         fetch-depth: 1
 
-    - name: Python ${{ matrix.python-version }}
+    - name: Python
       uses: actions/setup-python@v1
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.9
 
     - name: Install
       run: |
@@ -38,7 +29,9 @@ jobs:
 
     - name: Build
       run: |
-        qio run -d ${{ matrix.examples }}
+        qio run -d examples/arduino
+        qio run -d examples/native
+        qio run -d examples/simba
 
   release:
     needs:
@@ -65,7 +58,7 @@ jobs:
           echo "Platform P51 for ESP8266/ESP8285 SoC" >> README.txt
           echo $(date +"%Y.%m.%d") >> README.txt
           echo ${GITHUB_REF/refs\/tags\//} >> README.txt
-          echo -e " by www.OS-Q.com\n" >> README.txt
+          echo -e "www.OS-Q.com\n" >> README.txt
           git log --stat -1 >> README.txt
           zip -r P51.zip boards builder extend link.json link.py
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
