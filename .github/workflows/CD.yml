@@ -94,6 +94,37 @@ jobs:
           ossutil cp ${{ env.FIRMWARE }}/P51.zip ${{ secrets.OSS_BUCKET }} -rf
           echo "::set-output name=status::success"
 
+  update:
+    needs:
+      - release
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: OS-Q/P51E
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: OSQ
+
+      - name: Install
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+          git config --global user.email ${{ secrets.GH_USER_MAIL }}
+          git config --global user.name ${{ secrets.GH_USER }}
+
+      - name: commit
+        working-directory: OSQ
+        run: |
+          chmod +x ./update.sh
+          sudo bash ./update
+
   rebuild:
     needs:
       - release
