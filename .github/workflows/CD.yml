@@ -96,7 +96,7 @@ jobs:
 
   update:
     needs:
-      - release
+      - check
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -123,7 +123,7 @@ jobs:
         working-directory: OSQ
         run: |
           chmod +x ./update.sh
-          sudo bash ./update
+          sudo bash ./update.sh
 
   rebuild:
     needs:
