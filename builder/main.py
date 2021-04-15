@@ -1,3 +1,17 @@
+# Copyright 2014-present PlatformIO <contact@platformio.org>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # pylint: disable=redefined-outer-name
 
 import re
@@ -6,7 +20,7 @@ from os.path import join
 
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild,
-                            Builder, Default, DefaultEnvironment)
+                          Builder, Default, DefaultEnvironment)
 from platformio import util
 
 #
@@ -232,8 +246,9 @@ else:
     else:
         target_firm = env.ElfToBin(
             join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+        env.Depends(target_firm, "checkprogsize")
 
-env.AddPlatformTarget("buildfs", target_firm, None, "Build Filesystem Image")
+env.AddPlatformTarget("buildfs", target_firm, target_firm, "Build Filesystem Image")
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
@@ -270,7 +285,7 @@ upload_actions = []
 # Compatibility with old OTA configurations
 if (upload_protocol != "espota"
         and re.match(r"\"?((([0-9]{1,3}\.){3}[0-9]{1,3})|[^\\/]+\.local)\"?$",
-                    env.get("UPLOAD_PORT", ""))):
+                     env.get("UPLOAD_PORT", ""))):
     upload_protocol = "espota"
     sys.stderr.write(
         "Warning! We have just detected `upload_port` as IP address or host "
@@ -288,7 +303,7 @@ if upload_protocol == "espota":
             "espressif8266.html#over-the-air-ota-update\n")
     env.Replace(
         UPLOADER=join(
-            platform.get_package_dir("A51A") or "",
+            platform.get_package_dir("framework-arduinoespressif8266") or "",
             "tools", "espota.py"),
         UPLOADERFLAGS=["--debug", "--progress", "-i", "$UPLOAD_PORT"],
         UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS -f $SOURCE'
@@ -330,7 +345,7 @@ elif upload_protocol == "esptool":
 
     upload_actions = [
         env.VerboseAction(env.AutodetectUploadPort,
-                            "Looking for upload port..."),
+                          "Looking for upload port..."),
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
@@ -366,7 +381,7 @@ env.AddPlatformTarget(
 
 if any("-Wl,-T" in f for f in env.get("LINKFLAGS", [])):
     print("Warning! '-Wl,-T' option for specifying linker scripts is deprecated. "
-            "Please use 'board_build.ldscript' option in your 'platformio.ini' file.")
+          "Please use 'board_build.ldscript' option in your 'platformio.ini' file.")
 
 #
 # Default targets
