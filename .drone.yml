@@ -13,4 +13,3 @@ steps:
   - qio run -d examples/simba
   - qio run -d examples/arduino
   - qio run -d examples/native
-  - qio run -d examples/template-A

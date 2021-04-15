@@ -15,15 +15,14 @@ jobs:
           name: "Install"
           command: |
             python -m pip install --upgrade pip
-            pip install -U https://github.com/platformio/platformio/archive/develop.zip
-            platformio platform install file://.
+            pip install -U https://github.com/OS-Q/S03/archive/master.zip
+            qio platform install https://github.com/OS-Q/P51/releases/latest/download/P51.zip
       - run:
           name: "Build"
           command: |
-            platformio run -d examples/arduino
-            platformio run -d examples/native
-            platformio run -d examples/simba
-            platformio run -d examples/template-A
+            qio run -d examples/arduino
+            qio run -d examples/native
+            qio run -d examples/simba
 
   QIO:
     docker:
@@ -48,7 +47,6 @@ jobs:
             qio run -d examples/arduino
             qio run -d examples/native
             qio run -d examples/simba
-            qio run -d examples/template-A
 
 workflows:
     version: 2
