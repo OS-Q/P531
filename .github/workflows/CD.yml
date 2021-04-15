@@ -63,10 +63,10 @@ jobs:
       - name: Package Src
         id: package
         run: |
-          echo "#package release : " >> CHANGELOG.txt
-          echo ${{ github.ref }} >> CHANGELOG.txt
+          echo "P51 For ESP8266/ESP8285 SoC" >> CHANGELOG.txt
+          echo $(date +"%Y.%m.%d") >> CHANGELOG.txt
           echo ${{ github.sha }} >> CHANGELOG.txt
-          zip -r P51.zip boards builder link.json CHANGELOG.txt
+          zip -r P51.zip boards builder link.json link.py
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
           echo "::set-output name=status::success"
 
@@ -87,6 +87,7 @@ jobs:
           tag_name: ${{ steps.tag.outputs.release_tag }}
           files: |
             ${{ env.FIRMWARE }}/P51.zip
+            ${{ env.FIRMWARE }}/CHANGELOG.txt
 
       - name: Setup OSS
         uses: stopstopstop/ossutil-action@master
@@ -95,7 +96,7 @@ jobs:
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
       - name: Upload To OSS
-        run: ossutil cp P51.zip ${{ secrets.OSS_BUCKET }}
+        run: ossutil cp P51.zip ${{ secrets.OSS_BUCKET }} -rf
 
       - name: Send mail
         uses: stopstopstop/mail-action@master
