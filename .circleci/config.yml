@@ -20,9 +20,9 @@ jobs:
       - run:
           name: "Build"
           command: |
-            pio run -d examples/pico-hello
-            pio run -d examples/pico-ardiuno
-            pio run -d examples/pico-cmsis-dap
+            pio run -d examples/arduino
+            pio run -d examples/native
+            pio run -d examples/simba
 
 workflows:
     version: 2

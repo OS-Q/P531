@@ -10,6 +10,6 @@ steps:
   - git submodule update --init --recursive
   - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
   - qio platform install file://.
-  - qio run -d examples/simba
-  - qio run -d examples/arduino
-  - qio run -d examples/native
+  - pio run -d examples/arduino
+  - pio run -d examples/native
+  - pio run -d examples/simba
