@@ -1,22 +1,15 @@
 language: python
 python:
-  - "3.7"
+  - "3.9"
 
 env:
-  - PLATFORMIO_PROJECT_DIR=examples/arduino
-  - PLATFORMIO_PROJECT_DIR=examples/native
-  - PLATFORMIO_PROJECT_DIR=examples/simba
+  - PLATFORMIO_PROJECT_DIR="examples/arduino"
+  - PLATFORMIO_PROJECT_DIR="examples/native"
+  - PLATFORMIO_PROJECT_DIR="examples/simba"
 
 install:
-  - pip install -U https://github.com/OS-Q/S03/archive/master.zip
+  - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
   - qio platform install file://.
 
 script:
-  - qio run -d $PLATFORMIO_PROJECT_DIR
-
-notifications:
-  email:
-    recipients:
-      - tang@qitas.cn
-    on_success: never   # default: change
-    on_failure: always  # default: always
+  - qio run -s -d $PLATFORMIO_PROJECT_DIR
