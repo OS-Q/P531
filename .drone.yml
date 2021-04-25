@@ -8,8 +8,9 @@ steps:
   - apt update
   - apt install -y git
   - git submodule update --init --recursive
-  - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-  - qio platform install file://.
-  - pio run -d examples/arduino
-  - pio run -d examples/native
-  - pio run -d examples/simba
+  - pip install -U https://github.com/platformio/platformio/archive/develop.zip
+  - pio platform install file://.
+  - pio run -d examples/arduino-blink
+  - pio run -d examples/arduino-wifiscan
+  - pio run -d examples/arduino-webserver
+  - pio run -d examples/simba-blink

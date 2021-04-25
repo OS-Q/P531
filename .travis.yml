@@ -1,15 +1,21 @@
 language: python
 python:
   - "3.9"
+os:
+  - linux
+
+git:
+  depth: 1
 
 env:
-  - PLATFORMIO_PROJECT_DIR="examples/arduino"
-  - PLATFORMIO_PROJECT_DIR="examples/native"
-  - PLATFORMIO_PROJECT_DIR="examples/simba"
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-wifiscan
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-webserver
+  - PLATFORMIO_PROJECT_DIR=examples/simba-blink
 
 install:
-  - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-  - qio platform install file://.
+  - pip install -U https://github.com/platformio/platformio/archive/develop.zip
+  - pio platform install file://.
 
 script:
-  - qio run -s -d $PLATFORMIO_PROJECT_DIR
+  - pio run -d $PLATFORMIO_PROJECT_DIR

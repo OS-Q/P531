@@ -2,9 +2,7 @@
 
 [![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
 
-[![Build Status](https://github.com/OS-Q/P51/workflows/CI/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/CI.yml)
-[![Build Status](https://github.com/OS-Q/P51/workflows/CD/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/CD.yml)
-[![Build Status](https://github.com/OS-Q/P51/workflows/nightly/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/nightly.yml)
+[![Build Status](https://github.com/OS-Q/P51/workflows/PIO/badge.svg)](https://github.com/OS-Q/P51/actions/workflows/PIO.yml)
 [![Build Status](https://circleci.com/gh/OS-Q/P51.svg?style=svg)](https://circleci.com/gh/OS-Q/P51)
 [![Build Status](https://travis-ci.com/OS-Q/P51.svg?branch=master)](https://travis-ci.com/OS-Q/P51)
 [![Build Status](https://cloud.drone.io/api/badges/OS-Q/P51/status.svg)](https://cloud.drone.io/OS-Q/P51)
