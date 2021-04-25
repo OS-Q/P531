@@ -4,65 +4,68 @@
   "description": "Espressif wifi SoC",
   "homepage": "https://www.OS-Q.com/",
   "license": "Apache-2.0",
-  "version": "2.6.3",
+  "keywords": [
+    "dev-platform",
+    "Wi-Fi",
+    "Xtensa",
+    "106Micro"
+  ],
   "engines": {
     "platformio": "^5"
   },
-  "keywords": [
-    "dev-platform",
-    "OS-Q",
-    "Wi-Fi",
-    "Xtensa",
-    "Arduino"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/OS-Q/P51.git"
   },
+  "version": "2.6.3",
   "frameworks": {
     "arduino": {
-      "package": "A51A",
-      "script": "extend/A51A.py"
+      "package": "framework-arduinoespressif8266",
+      "script": "extend/frameworks/arduino.py"
     },
     "simba": {
-      "package": "simba",
-      "script": "extend/simba.py"
+      "package": "framework-simba",
+      "script": "extend/frameworks/simba.py"
     },
-    "freertos": {
-      "package": "E51B",
-      "script": "extend/E51B.py"
+    "esp8266-rtos-sdk": {
+      "package": "framework-esp8266-rtos-sdk",
+      "script": "extend/frameworks/esp8266-rtos-sdk.py"
     },
-    "native": {
-      "package": "E51A",
-      "script": "extend/E51A.py"
+    "esp8266-nonos-sdk": {
+      "package": "framework-esp8266-nonos-sdk",
+      "script": "extend/frameworks/esp8266-nonos-sdk.py"
     }
   },
   "packages": {
-    "A51A": {
-      "type": "framework",
-      "optional": true,
-      "version": "https://github.com/OS-Q/A51A.git"
-    },
-    "E51A": {
-      "type": "framework",
-      "optional": true,
-      "version": "https://github.com/OS-Q/E51A.git"
-    },
-    "E51B": {
-      "type": "framework",
-      "optional": true,
-      "version": "https://github.com/OS-Q/E51B.git"
-    },
-    "simba": {
-      "type": "framework",
-      "optional": true,
-      "version": "https://github.com/OS-Q/simba.git"
-    },
     "toolchain-xtensa": {
       "type": "toolchain",
       "owner": "platformio",
       "version": "~2.40802.0",
       "optionalVersions": ["~1.40802.0"]
+    },
+    "framework-arduinoespressif8266": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~3.20704.0"
+    },
+    "framework-esp8266-rtos-sdk": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": ">=1.5.0-beta"
+    },
+    "framework-esp8266-nonos-sdk": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": ">=2.1.0"
+    },
+    "framework-simba": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": ">=7.0.0"
     },
     "tool-esptool": {
       "type": "uploader",

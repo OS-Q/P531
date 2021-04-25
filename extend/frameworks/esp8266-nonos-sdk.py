@@ -1,4 +1,3 @@
-
 from os.path import isdir, join
 
 from SCons.Script import Builder, DefaultEnvironment
@@ -6,7 +5,7 @@ from SCons.Script import Builder, DefaultEnvironment
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 
-FRAMEWORK_DIR = platform.get_package_dir("E51A")
+FRAMEWORK_DIR = platform.get_package_dir("framework-esp8266-nonos-sdk")
 assert isdir(FRAMEWORK_DIR)
 
 env.Append(
