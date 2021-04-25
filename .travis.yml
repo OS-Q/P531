@@ -14,8 +14,8 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/simba-blink
 
 install:
-  - pip install -U https://github.com/platformio/platformio/archive/develop.zip
-  - pio platform install file://.
+  - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
+  - qio platform install file://.
 
 script:
-  - pio run -d $PLATFORMIO_PROJECT_DIR
+  - qio run -s -d $PLATFORMIO_PROJECT_DIR

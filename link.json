@@ -1,0 +1,90 @@
+{
+  "name": "P51",
+  "title": "Platform ESP8266",
+  "description": "Espressif wifi SoC",
+  "homepage": "https://www.OS-Q.com/",
+  "license": "Apache-2.0",
+  "version": "2.6.3",
+  "engines": {
+    "platformio": "^5"
+  },
+  "keywords": [
+    "dev-platform",
+    "OS-Q",
+    "Wi-Fi",
+    "Xtensa",
+    "Arduino"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OS-Q/P51.git"
+  },
+  "frameworks": {
+    "arduino": {
+      "package": "A51A",
+      "script": "extend/A51A.py"
+    },
+    "simba": {
+      "package": "simba",
+      "script": "extend/simba.py"
+    },
+    "freertos": {
+      "package": "E51B",
+      "script": "extend/E51B.py"
+    },
+    "native": {
+      "package": "E51A",
+      "script": "extend/E51A.py"
+    }
+  },
+  "packages": {
+    "A51A": {
+      "type": "framework",
+      "optional": true,
+      "version": "https://github.com/OS-Q/A51A.git"
+    },
+    "E51A": {
+      "type": "framework",
+      "optional": true,
+      "version": "https://github.com/OS-Q/E51A.git"
+    },
+    "E51B": {
+      "type": "framework",
+      "optional": true,
+      "version": "https://github.com/OS-Q/E51B.git"
+    },
+    "simba": {
+      "type": "framework",
+      "optional": true,
+      "version": "https://github.com/OS-Q/simba.git"
+    },
+    "toolchain-xtensa": {
+      "type": "toolchain",
+      "owner": "platformio",
+      "version": "~2.40802.0",
+      "optionalVersions": ["~1.40802.0"]
+    },
+    "tool-esptool": {
+      "type": "uploader",
+      "owner": "platformio",
+      "version": "<2"
+    },
+    "tool-esptoolpy": {
+      "type": "uploader",
+      "owner": "platformio",
+      "version": "~1.30000.0"
+    },
+    "tool-mkspiffs": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~1.200.0"
+    },
+    "tool-mklittlefs": {
+      "type": "uploader",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~1.203.0"
+    }
+  }
+}
