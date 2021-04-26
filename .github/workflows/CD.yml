@@ -85,8 +85,8 @@ jobs:
         if: env.UPLOAD_BUILD
         uses: actions/upload-artifact@v2
         with:
-          name: qio_${{ matrix.example }}_${{ matrix.os }}
-          path: examples/${{ matrix.example }}/.pio
+          name: build_${{ matrix.example }}
+          path: examples/${{ matrix.example }}/.pio/build
 
   build_fail:
     needs:
@@ -201,11 +201,11 @@ jobs:
           echo ${GITHUB_REF/refs\/tags\//} >> log.txt
           echo "www.OS-Q.com\n" >> log.txt
           git log --stat -1 >> log.txt
-          mkdir package
-          cp -rf boards builder extend monitor link.json link.py platform.json platform.py package
+          # mkdir package
+          # cp -rf boards builder extend monitor link.json link.py platform.json platform.py package
           zip -r package.zip boards builder extend monitor link.json link.py platform.json platform.py
-          mkdir sources
-          cp -rf boards extend monitor link.json link.py sources
+          # mkdir sources
+          # cp -rf boards extend monitor link.json link.py sources
           zip -r sources.zip boards extend monitor link.json link.py
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
           echo "::set-output name=status::success"
@@ -214,15 +214,15 @@ jobs:
         if: steps.package.outputs.status == 'success' && !cancelled()
         uses: actions/upload-artifact@v2
         with:
-          name:  ${{ steps.tag.outputs.release_tag }}
-          path: package/
+          name:  ${{ steps.tag.outputs.release_tag }}_all
+          path: ${{ env.FIRMWARE }}/package.zip
 
       - name: Upload qio
         if: steps.package.outputs.status == 'success' && !cancelled()
         uses: actions/upload-artifact@v2
         with:
-          name:  ${{ steps.tag.outputs.release_tag }}_qio
-          path: sources/
+          name: ${{ steps.tag.outputs.release_tag }}_qio
+          path: ${{ env.FIRMWARE }}/sources.zip
 
       - name: Upload Release
         id: upload-release
@@ -287,14 +287,6 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
           message: "release success"
 
-      - name: Folder
-        id: folder
-        run: |
-          zip -r package.zip boards builder extend monitor link.json link.py platform.json platform.py
-          # mkdir sources
-          # cp -rf boards builder extend monitor link.json link.py platform.json platform.py sources
-          echo "::set-output name=status::success"
-
       - name: Setup OSS
         uses: Qful/ossutil-action@master
         with:
@@ -305,10 +297,10 @@ jobs:
       - name: Upload OSS
         id: OSS
         run: |
-          cp package.zip P51.zip
-          cp package.zip P51_${GITHUB_REF/refs\/tags\//}.zip
-          ossutil cp ${{ env.FIRMWARE }}/P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
-          ossutil cp ${{ env.FIRMWARE }}/P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          zip -r P51.zip boards builder extend monitor link.json link.py platform.json platform.py
+          cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
+          ossutil cp P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
+          ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
       # - name: Delet tag
@@ -371,8 +363,8 @@ jobs:
         run: |
           cp package.zip P51T.zip
           cp package.zip P51T_${GITHUB_REF/refs\/tags\//}.zip
-          ossutil cp ${{ env.FIRMWARE }}/P51T.zip ${{ secrets.OSS_P_BUCKET }} -rf
-          ossutil cp ${{ env.FIRMWARE }}/P51T_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          ossutil cp P51T.zip ${{ secrets.OSS_P_BUCKET }} -rf
+          ossutil cp P51T_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
       - name: notification
@@ -418,6 +410,21 @@ jobs:
           qio run -d examples/simba-blink
           echo "::set-output name=status::success"
           echo $(date +"%Y.%m.%d") >> qio/mail.md
+
+      - name: Install qio
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
+          qio platform install https://github.com/OS-Q/P51/releases/latest/download/sources.zip
+
+      - name: ReBuild_by_qio
+        id: rebuild_qio
+        if: steps.getgh.outputs.status == 'success' && !cancelled()
+        run: |
+          qio run -d examples/arduino-blink
+          qio run -d examples/simba-blink
+          echo "::set-output name=status::success"
+
 
       - name: Send Mail
         if: steps.rebuild.outputs.status == 'success' && !cancelled()
