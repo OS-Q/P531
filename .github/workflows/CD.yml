@@ -548,12 +548,12 @@ jobs:
         id: build
         if: success()
         run: |
-          mkdir qio
-          unzip -q P51.zip qio/
-          qio run -d qio/examples/A
-          qio run -d qio/examples/B
+          unzip P51.zip examples
+          qio run -d examples/examples/A
+          qio run -d examples/examples/B
 
       - name: Send Mail
+        if: success()
         uses: Qful/mail-action@master
         with:
           server_address:  smtp.gmail.com
