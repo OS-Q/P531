@@ -20,7 +20,7 @@
   "version": "2.6.4",
   "frameworks": {
     "arduino": {
-      "package": "framework-arduinoespressif8266",
+      "package": "A51",
       "script": "extend/frameworks/arduino.py"
     },
     "simba": {
@@ -43,11 +43,10 @@
       "version": "~2.40802.0",
       "optionalVersions": ["~1.40802.0"]
     },
-    "framework-arduinoespressif8266": {
+    "A51": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": "~3.20704.0"
+      "version": "https://github.com/OS-Q/A51.git"
     },
     "E51B": {
       "type": "framework",
