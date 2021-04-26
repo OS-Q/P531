@@ -3,10 +3,13 @@ version: "{build}"
 environment:
 
   matrix:
+    - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-wifiscan"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-webserver"
-    - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/esp8266-rtos-sdk-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/esp8266-nonos-sdk-blink"
+
 clone_depth: 1
 platform:
   - x64

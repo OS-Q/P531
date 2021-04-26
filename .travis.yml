@@ -1,21 +1,24 @@
 language: python
+sudo: required
 python:
   - "3.9"
 os:
   - linux
-
 git:
   depth: 1
+before_install: python -m pip install --upgrade pip
 
 env:
+  - PLATFORMIO_PROJECT_DIR=examples/simba-blink
   - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
   - PLATFORMIO_PROJECT_DIR=examples/arduino-wifiscan
   - PLATFORMIO_PROJECT_DIR=examples/arduino-webserver
-  - PLATFORMIO_PROJECT_DIR=examples/simba-blink
+  - PLATFORMIO_PROJECT_DIR=examples/esp8266-rtos-sdk-blink
+  - PLATFORMIO_PROJECT_DIR=examples/esp8266-nonos-sdk-blink
 
 install:
   - pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
   - qio platform install file://.
 
 script:
-  - qio run -s -d $PLATFORMIO_PROJECT_DIR
+  - qio run -d $PLATFORMIO_PROJECT_DIR

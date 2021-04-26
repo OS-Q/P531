@@ -1,4 +1,4 @@
-﻿# P51 for ESP8266 SoC
+﻿# [P51: ESP8266 WiFi SoC](https://github.com/OS-Q/P41)
 
 [![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
 

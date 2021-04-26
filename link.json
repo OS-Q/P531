@@ -1,7 +1,7 @@
 {
   "name": "P51",
-  "title": "OS-Q ESP8266 Platform",
-  "description": "Espressif wifi SoC",
+  "title": "OS-Q Platform ESP8266",
+  "description": "Espressif8266 WiFi SoC with 160MHz LX106 Core",
   "homepage": "https://www.OS-Q.com/",
   "license": "Apache-2.0",
   "keywords": [

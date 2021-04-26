@@ -1,13 +1,13 @@
 name: nightly
 
-on:
-  schedule:
-    - cron: "0 8 * * *"
 # on:
-#   push:
-#     branches:
-#       - master
-#       - main
+#   schedule:
+#     - cron: "0 8 * * *"
+on:
+  push:
+    branches:
+      - master
+      - main
 
 env:
   UPLOAD_BUILD: false
@@ -18,9 +18,9 @@ jobs:
       fail-fast: false
       matrix:
         example:
+          - "simba-blink"
           - "arduino-blink"
           - "arduino-wifiscan"
-          - "simba-blink"
           - "arduino-asyncudp"
           - "arduino-webserver"
           - "esp8266-nonos-sdk-blink"
@@ -32,7 +32,6 @@ jobs:
           - "lite"
 
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -59,19 +58,17 @@ jobs:
           qio platform install https://github.com/OS-Q/P51/releases/latest/download/sources.zip
 
       - name: Build
-        id: build
         if: success()
         working-directory: examples
         run: |
           pio run -d ${{ matrix.example }}
-          echo "::set-output name=status::success"
 
       - name: Upload
         if: env.UPLOAD_BUILD
         uses: actions/upload-artifact@v2
         with:
-          name: pio_upload_${{ matrix.example }}
-          path: examples/${{ matrix.example }}
+          name: qio_build_${{ matrix.example }}_${{ matrix.package }}
+          path: examples/${{ matrix.example }}/.pio/build/
 
   QIO_fail:
     needs:
@@ -79,11 +76,6 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-
       - name: notification
         uses: Qful/mqtt-action@master
         with:
@@ -93,16 +85,16 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "QIO build fail"
+          message: "QIO build failure"
 
   PIO:
     strategy:
       fail-fast: false
       matrix:
         example:
+          - "simba-blink"
           - "arduino-blink"
           - "arduino-wifiscan"
-          - "simba-blink"
           - "arduino-asyncudp"
           - "arduino-webserver"
           - "esp8266-nonos-sdk-blink"
@@ -130,19 +122,17 @@ jobs:
           pio platform install https://github.com/OS-Q/P51/releases/latest/download/package.zip
 
       - name: Build
-        id: build
         if: success()
         working-directory: examples
         run: |
           pio run -d ${{ matrix.example }}
-          echo "::set-output name=status::success"
 
       - name: Upload
         if: env.UPLOAD_BUILD
         uses: actions/upload-artifact@v2
         with:
-          name: qio_upload_${{ matrix.example }}
-          path: examples/${{ matrix.example }}
+          name: pio_build_${{ matrix.example }}
+          path: examples/${{ matrix.example }}/.pio/build/
 
   PIO_fail:
     needs:
@@ -150,11 +140,6 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-
       - name: notification
         uses: Qful/mqtt-action@master
         with:
@@ -164,4 +149,4 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "PIO build fail"
+          message: "PIO build failure"
