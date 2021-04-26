@@ -326,6 +326,36 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}
           message: "deploy package success"
 
+  deploy_action_end:
+    needs:
+      - deploy_package_success
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: notification
+        uses: Qful/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}
+          message: "deploy end"
+
+      - name: Delet tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          git fetch
+          git tag -d ${GITHUB_REF/refs\/tags\//}
+          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
+
 
   deploy_lite:
     needs:
@@ -545,32 +575,3 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}
           message: "lite check fail"
 
-  deploy_action_end:
-    needs:
-      - lite_check
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "deploy cancelled"
-
-      - name: Delet tag
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          git fetch
-          git tag -d ${GITHUB_REF/refs\/tags\//}
-          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
