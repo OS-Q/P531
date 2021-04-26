@@ -303,15 +303,9 @@ jobs:
           ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
-      # - name: Delet tag
-      #   run: |
-      #     git fetch
-      #     git tag -d ${GITHUB_REF/refs\/tags\//}
-      #     git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
-
   release_lite:
     needs:
-      - release_oss
+      - release
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -353,8 +347,6 @@ jobs:
       - name: Upload OSS
         id: OSS
         run: |
-          # rm -r examples/.git*
-          # rm -r boards/.git*
           zip -r P51.zip examples boards builder extend monitor link.json link.py platform.json platform.py
           cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
           ossutil cp P51.zip ${{ secrets.OSS_P_Q_BUCKET }} -rf
