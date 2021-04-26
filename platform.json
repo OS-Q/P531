@@ -1,7 +1,7 @@
 {
   "name": "P51",
-  "title": "ESP8266",
-  "description": "Espressif Systems is a privately held fabless semiconductor company. They provide wireless communications and Wi-Fi chips which are widely used in mobile devices and the Internet of Things applications.",
+  "title": "OS-Q ESP8266 Platform",
+  "description": "Espressif8266 wifi SoC with 160MHz LX106 Core",
   "homepage": "https://espressif.com/",
   "license": "Apache-2.0",
   "keywords": [
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-espressif8266.git"
   },
-  "version": "2.6.3",
+  "version": "2.6.4",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinoespressif8266",

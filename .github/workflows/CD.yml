@@ -11,7 +11,7 @@ env:
 
 jobs:
   Lint_Code:
-    name: CheckCode
+    name: Lint
     runs-on: ubuntu-latest
     steps:
     - name: Check out
@@ -434,7 +434,7 @@ jobs:
           git tag -d ${GITHUB_REF/refs\/tags\//}
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
-  deploy_lite:
+  package:
     needs:
       - templete
     if: success()
@@ -505,9 +505,9 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
           message: "deploy lite success"
 
-  check_lite:
+  check_package:
     needs:
-      - deploy_lite
+      - package
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -542,9 +542,8 @@ jobs:
         id: build
         if: success()
         run: |
-          unzip P51.zip .
+          unzip P51.zip
           qio run -d examples/A
-          qio run -d examples/B
 
       - name: Send Mail
         if: success()
@@ -563,9 +562,9 @@ jobs:
           attachments: P51.txt
           body: file://./P51.md
 
-  check_lite_end:
+  check_package_end:
     needs:
-      - check_lite
+      - check_package
     if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
