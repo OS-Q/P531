@@ -157,7 +157,7 @@ jobs:
         run: |
           qio run -d .
 
-  templete_fail:
+  templete_build_fail:
     needs:
       - templete
     if: failure()
@@ -237,10 +237,10 @@ jobs:
             ${{ env.FIRMWARE }}/sources.zip
             ${{ env.FIRMWARE }}/log.txt
 
-  release_fail:
+  release_end:
     needs:
       - release
-    if: failure() && startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -257,17 +257,17 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
-          message: "release fail"
+          message: "release end"
 
-      - name: Delet tag
+      - name: delet tag
         run: |
           git fetch
           git tag -d ${GITHUB_REF/refs\/tags\//}
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
-  release_all:
+  deploy_package:
     needs:
-      - release
+      - templete
     if: success() && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
@@ -294,18 +294,42 @@ jobs:
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
-      - name: Upload OSS
+      - name: Upload P51
         id: OSS
         run: |
           zip -r P51.zip boards builder extend monitor link.json link.py platform.json platform.py
-          cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
+          # cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
           ossutil cp P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
-          ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          # ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
-  release_lite:
+  deploy_package_success:
     needs:
-      - release
+      - deploy_package
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: notification
+        uses: Qful/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}
+          message: "deploy package success"
+
+
+  deploy_lite:
+    needs:
+      - templete
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -348,9 +372,7 @@ jobs:
         id: OSS
         run: |
           zip -r P51.zip examples boards builder extend monitor link.json link.py platform.json platform.py
-          cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
           ossutil cp P51.zip ${{ secrets.OSS_P_Q_BUCKET }} -rf
-          ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_Q_BUCKET }} -f
           echo "::set-output name=status::success"
 
       - name: notification
@@ -362,9 +384,9 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
-          message: "release templete success"
+          message: "deploy lite success"
 
-  rebuild:
+  check_release:
     needs:
       - release
     if: success()
@@ -388,18 +410,17 @@ jobs:
           qio platform install https://github.com/OS-Q/P51/releases/latest/download/package.zip
           echo "::set-output name=status::success"
 
-      - name: ReBuild
-        id: rebuild
+      - name: Build
+        id: build
         if: steps.getgh.outputs.status == 'success' && !cancelled()
         run: |
           qio run -d examples/arduino-blink
           qio run -d examples/simba-blink
           echo "::set-output name=status::success"
-          echo $(date +"%Y.%m.%d") >> qio/mail.md
 
-  rebuild_pass:
+  check_release_pass:
     needs:
-      - rebuild
+      - check_release
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -436,9 +457,9 @@ jobs:
           body: file://./qio/mail.md
 
 
-  rebuild_fail:
+  check_release_fail:
     needs:
-      - rebuild
+      - check_release
     if: failure()
     runs-on: ubuntu-latest
     steps:
@@ -457,11 +478,11 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "rebuild fail"
+          message: "check release fail"
 
-  recheck:
+  lite_check:
     needs:
-      - release_lite
+      - deploy_lite
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -485,7 +506,7 @@ jobs:
       - name: download lite
         id: download
         run: |
-          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}/P51.zip .
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.zip .
           echo "::set-output name=status::success"
 
       - name: Install lite
@@ -495,16 +516,16 @@ jobs:
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
           qio platform install file://./P51.zip
 
-      - name: ReBuild_by_qio
+      - name: Build_by_qio
         id: rebuild_qio
-        if: steps.getgh.outputs.status == 'success' && !cancelled()
+        if: success()
         run: |
-          qio run -d examples/arduino-blink
-          qio run -d examples/simba-blink
+          qio run -d examples/A
+          qio run -d examples/B
 
-  recheck_fail:
+  lite_check_fail:
     needs:
-      - recheck
+      - lite_check
     if: failure()
     runs-on: ubuntu-latest
     steps:
@@ -522,36 +543,12 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "recheck fail"
-
-  deploy_check_end:
-    needs:
-      - recheck
-    if: cancelled()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "recheck cancelled"
-
+          message: "lite check fail"
 
   deploy_action_end:
     needs:
-      - rebuild_pass
-    if: cancelled()
+      - lite_check
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
