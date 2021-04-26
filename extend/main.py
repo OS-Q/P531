@@ -168,7 +168,7 @@ env.Replace(
         "--port", '"$UPLOAD_PORT"'
     ],
     ERASETOOL=join(
-        platform.get_package_dir("tool-esptoolpy") or "", "esptool.py"),
+        platform.get_package_dir("C51D") or "", "esptool.py"),
     ERASECMD='"$PYTHONEXE" "$ERASETOOL" $ERASEFLAGS erase_flash',
 
     PROGSUFFIX=".elf"
@@ -299,7 +299,7 @@ if upload_protocol == "espota":
 elif upload_protocol == "esptool":
     env.Replace(
         UPLOADER=join(
-            platform.get_package_dir("tool-esptoolpy") or "", "esptool.py"),
+            platform.get_package_dir("C51D") or "", "esptool.py"),
         UPLOADERFLAGS=[
             "--chip", "esp8266",
             "--port", '"$UPLOAD_PORT"',

@@ -17,7 +17,7 @@ env:
 
 jobs:
   CodeCheck:
-    name: CodeCheck
+    name: Lint
     runs-on: ubuntu-latest
     steps:
     - name: Check out
