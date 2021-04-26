@@ -91,7 +91,7 @@ jobs:
   build_example_end:
     needs:
       - example
-    if: !success()
+    if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
       - name: Generate message
@@ -111,8 +111,7 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
           message: ${{ steps.message.outputs.info }}
 
-      - name: delet new tag
-        if: startsWith(github.ref, 'refs/tags/') && !success()
+      - name: delet tag
         run: |
           git fetch
           git tag -d ${GITHUB_REF/refs\/tags\//}
@@ -161,7 +160,7 @@ jobs:
   build_templete_end:
     needs:
       - templete
-    if: !success()
+    if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
       - name: notification
@@ -174,6 +173,12 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
           message: "build templete fail"
+
+      - name: delet tag
+        run: |
+          git fetch
+          git tag -d ${GITHUB_REF/refs\/tags\//}
+          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
   release:
     needs:
@@ -296,14 +301,13 @@ jobs:
   check_release_end:
     needs:
       - check_release
-    if: !success()
+    if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
-          fetch-depth: 1
 
       - name: notification
         uses: Qful/mqtt-action@master
@@ -315,6 +319,12 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
           message: "check release not success"
+
+      - name: delet tag
+        run: |
+          git fetch
+          git tag -d ${GITHUB_REF/refs\/tags\//}
+          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
   deploy_package:
     needs:
@@ -399,7 +409,7 @@ jobs:
   check_deploy_end:
     needs:
       - check_deploy
-    if: !success()
+    if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -419,8 +429,7 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}
           message: "check deploy fail"
 
-      - name: Delet tag
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: delet tag
         run: |
           git fetch
           git tag -d ${GITHUB_REF/refs\/tags\//}
@@ -540,7 +549,7 @@ jobs:
         if: success()
         run: |
           mkdir qio
-          upzip -q P51.zip qio/
+          unzip -q P51.zip qio/
           qio run -d qio/examples/A
           qio run -d qio/examples/B
 
@@ -563,20 +572,13 @@ jobs:
   check_lite_end:
     needs:
       - check_lite
-    if: !success()
+    if: startsWith(github.ref, 'refs/tags/') && !success()
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           submodules: "recursive"
-
-      - name: Delet tag
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          git fetch
-          git tag -d ${GITHUB_REF/refs\/tags\//}
-          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
       - name: notification
         uses: Qful/mqtt-action@master
@@ -588,3 +590,9 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
           message: "lite check fail"
+
+      - name: delet tag
+        run: |
+          git fetch
+          git tag -d ${GITHUB_REF/refs\/tags\//}
+          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
