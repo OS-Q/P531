@@ -1,4 +1,5 @@
 build: off
+version: "{build}"
 environment:
 
   matrix:
@@ -6,14 +7,19 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-wifiscan"
     - PLATFORMIO_PROJECT_DIR: "examples/arduino-webserver"
     - PLATFORMIO_PROJECT_DIR: "examples/simba-blink"
-
+clone_depth: 1
 platform:
   - x64
 install:
   - cmd: git submodule update --init --recursive
-  - cmd: SET PATH=C:\Python37\Scripts;%PATH%
+  - cmd: SET PATH=C:\Python39\Scripts;%PATH%
+  - cmd: pip3 install -U https://github.com/platformio/platformio/archive/develop.zip
+  - cmd: pio platform install file://.
   - cmd: pip3 install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
   - cmd: qio platform install file://.
+
+build_script:
+  - cmd: pio run -d %PLATFORMIO_PROJECT_DIR%
 
 test_script:
   - cmd: qio run -d %PLATFORMIO_PROJECT_DIR%

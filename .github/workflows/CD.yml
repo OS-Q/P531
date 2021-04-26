@@ -103,7 +103,7 @@ jobs:
       - name: Package
         id: package
         run: |
-          echo "Platform  P51 for ESP8266 SoC" >> log.txt
+          echo "Platform P51 for ESP8266 WiFi SoC" >> log.txt
           echo $(date +"%Y.%m.%d") >> log.txt
           echo ${GITHUB_REF/refs\/tags\//} >> log.txt
           echo "www.OS-Q.com\n" >> log.txt
@@ -145,8 +145,8 @@ jobs:
         run: |
           cp package.zip  P51.zip
           cp package.zip  P51_${GITHUB_REF/refs\/tags\//}.zip
-          ossutil cp ${{ env.FIRMWARE }}/ P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
-          ossutil cp ${{ env.FIRMWARE }}/ P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          ossutil cp ${{ env.FIRMWARE }}/P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
+          ossutil cp ${{ env.FIRMWARE }}/P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
   release_pass:
