@@ -8,7 +8,6 @@ on:
 
 env:
   UPLOAD_BUILD: false
-  TEMPLETE_ID: ["A","B"]
 
 jobs:
   CodeCheck:
@@ -125,7 +124,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        template: env.TEMPLETE_ID
+        template: ["A","B"]
 
     steps:
       - uses: actions/checkout@v2
