@@ -320,36 +320,28 @@ jobs:
           submodules: "recursive"
           fetch-depth: 1
 
-      - name: Checkout templete
-        uses: actions/checkout@v2
-        with:
-          repository: OS-Q/T51A
-          token: ${{ secrets.OSQ_REPO_TOKEN }}
-          path: A
+      - name: Folder
+        id: folder
+        run: |
+          rm -rf examples boards
 
       - name: Checkout templete
         uses: actions/checkout@v2
         with:
-          repository: OS-Q/T51B
+          submodules: "recursive"
+          fetch-depth: 1
+          repository: OS-Q/T51
           token: ${{ secrets.OSQ_REPO_TOKEN }}
-          path: B
+          path: examples
 
       - name: Checkout boards
         uses: actions/checkout@v2
         with:
+          submodules: "recursive"
+          fetch-depth: 1
           repository: OS-Q/B51
           token: ${{ secrets.OSQ_REPO_TOKEN }}
-          path: board
-
-      - name: Folder
-        id: folder
-        run: |
-          mv -f board boards
-          rm -rf examples
-          mkdir examples
-          cp -rf A B examples
-          zip -r package.zip examples boards builder extend monitor link.json link.py platform.json platform.py
-          echo "::set-output name=status::success"
+          path: boards
 
       - name: Setup OSS
         uses: Qful/ossutil-action@master
@@ -361,10 +353,12 @@ jobs:
       - name: Upload OSS
         id: OSS
         run: |
-          cp package.zip P51T.zip
-          cp package.zip P51T_${GITHUB_REF/refs\/tags\//}.zip
-          ossutil cp P51T.zip ${{ secrets.OSS_P_BUCKET }} -rf
-          ossutil cp P51T_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          rm -rf examples/.git*
+          rm -rf boards/.git*
+          zip -rf P51.zip examples boards builder extend monitor link.json link.py platform.json platform.py
+          cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
+          ossutil cp P51.zip ${{ secrets.OSS_P_Q_BUCKET }} -rf
+          ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_Q_BUCKET }} -f
           echo "::set-output name=status::success"
 
       - name: notification
@@ -411,6 +405,22 @@ jobs:
           echo "::set-output name=status::success"
           echo $(date +"%Y.%m.%d") >> qio/mail.md
 
+
+  recheck:
+    needs:
+      - release
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
       - name: Install qio
         run: |
           python -m pip install --upgrade pip
@@ -423,25 +433,6 @@ jobs:
         run: |
           qio run -d examples/arduino-blink
           qio run -d examples/simba-blink
-          echo "::set-output name=status::success"
-
-
-      - name: Send Mail
-        if: steps.rebuild.outputs.status == 'success' && !cancelled()
-        uses: Qful/mail-action@master
-        with:
-          server_address:  smtp.gmail.com
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
-          subject: OS-Q P51 package released (ESP8266)
-          to: ${{secrets.MAIL_TO}}
-          from: Qitas
-          cc: ${{github.event.pusher.email}}
-          content_type: text/html
-          convert_markdown: true
-          attachments: log.txt
-          body: file://./qio/mail.md
 
   rebuild_pass:
     needs:
@@ -464,6 +455,22 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
           message: "rebuild success"
+
+      - name: Send Mail
+        uses: Qful/mail-action@master
+        with:
+          server_address:  smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: OS-Q P51 package released (ESP8266)
+          to: ${{secrets.MAIL_TO}}
+          from: Qitas
+          cc: ${{github.event.pusher.email}}
+          content_type: text/html
+          convert_markdown: true
+          attachments: https://github.com/OS-Q/P51/releases/latest/download/log.txt
+          body: file://./qio/mail.md
 
 
   rebuild_fail:
@@ -489,7 +496,9 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}
           message: "rebuild fail"
 
-  cancelled:
+  CD_action_end:
+    needs:
+      - rebuild_pass
     if: cancelled()
     runs-on: ubuntu-latest
     steps:
