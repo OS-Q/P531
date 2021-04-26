@@ -9,6 +9,9 @@ on:
 env:
   UPLOAD_BUILD: false
 
+env:
+  TEMPLETE_ID: ["A","B"]
+
 jobs:
   CodeCheck:
     name: CodeCheck
@@ -88,7 +91,7 @@ jobs:
           name: build_${{ matrix.example }}
           path: examples/${{ matrix.example }}/.pio/build
 
-  example_build_fail:
+  example_build_end:
     needs:
       - example
     if: startsWith(github.ref, 'refs/tags/') && !success()
@@ -124,9 +127,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        template:
-          - "A"
-          - "B"
+        template: env.TEMPLETE_ID
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -157,7 +159,7 @@ jobs:
         run: |
           qio run -d .
 
-  templete_build_fail:
+  templete_build_end:
     needs:
       - templete
     if: failure()
@@ -260,6 +262,60 @@ jobs:
           git tag -d ${GITHUB_REF/refs\/tags\//}
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
+  release_check:
+    needs:
+      - release
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Install
+        id: getgh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
+          qio platform install https://github.com/OS-Q/P51/releases/latest/download/package.zip
+          echo "::set-output name=status::success"
+
+      - name: Build
+        id: build
+        if: steps.getgh.outputs.status == 'success' && !cancelled()
+        run: |
+          qio run -d examples/arduino-blink
+          qio run -d examples/simba-blink
+          echo "::set-output name=status::success"
+
+  check_release_end:
+    needs:
+      - release_check
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+
+      - name: notification
+        uses: Qful/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}
+          message: "check_release success"
+
   deploy_package:
     needs:
       - templete
@@ -299,7 +355,7 @@ jobs:
           # ossutil cp P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
-  deploy_package_success:
+  package_check:
     needs:
       - deploy_package
     if: success()
@@ -322,9 +378,9 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}
           message: "deploy package success"
 
-  deploy_action_end:
+  package_check_end:
     needs:
-      - deploy_package_success
+      - package_check
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -351,84 +407,6 @@ jobs:
           git fetch
           git tag -d ${GITHUB_REF/refs\/tags\//}
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
-
-
-  check_release:
-    needs:
-      - release
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.9
-
-      - name: Install
-        id: getgh
-        run: |
-          python -m pip install --upgrade pip
-          pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-          qio platform install https://github.com/OS-Q/P51/releases/latest/download/package.zip
-          echo "::set-output name=status::success"
-
-      - name: Build
-        id: build
-        if: steps.getgh.outputs.status == 'success' && !cancelled()
-        run: |
-          qio run -d examples/arduino-blink
-          qio run -d examples/simba-blink
-          echo "::set-output name=status::success"
-
-  check_release_pass:
-    needs:
-      - check_release
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "rebuild success"
-
-  check_release_fail:
-    needs:
-      - check_release
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "check release fail"
 
 
   deploy_lite:
@@ -534,12 +512,14 @@ jobs:
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
           qio platform install file://./P51.zip
 
-      - name: Build_by_qio
-        id: rebuild_qio
+      - name: Build
+        id: build
         if: success()
         run: |
-          qio run -d examples/A
-          qio run -d examples/B
+          mkdir qio
+          upzip -q P51.zip qio/
+          qio run -d qio/examples/A
+          qio run -d qio/examples/B
 
       - name: Send Mail
         uses: Qful/mail-action@master
@@ -558,7 +538,7 @@ jobs:
           body: file://./P51.md
 
 
-  lite_check_fail:
+  lite_check_end:
     needs:
       - lite_check
     if: failure()
