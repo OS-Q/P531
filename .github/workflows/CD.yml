@@ -196,11 +196,7 @@ jobs:
       - name: Package
         id: package
         run: |
-          echo "Platform P51 for ESP8266 WiFi SoC" >> log.txt
-          echo $(date +"%Y.%m.%d") >> log.txt
-          echo ${GITHUB_REF/refs\/tags\//} >> log.txt
-          echo "www.OS-Q.com\n" >> log.txt
-          git log --stat -1 >> log.txt
+
           # mkdir package
           # cp -rf boards builder extend monitor link.json link.py platform.json platform.py package
           zip -r package.zip boards builder extend monitor link.json link.py platform.json platform.py
@@ -235,7 +231,6 @@ jobs:
           files: |
             ${{ env.FIRMWARE }}/package.zip
             ${{ env.FIRMWARE }}/sources.zip
-            ${{ env.FIRMWARE }}/log.txt
 
   release_end:
     needs:
@@ -297,6 +292,7 @@ jobs:
       - name: Upload P51
         id: OSS
         run: |
+
           zip -r P51.zip boards builder extend monitor link.json link.py platform.json platform.py
           # cp P51.zip P51_${GITHUB_REF/refs\/tags\//}.zip
           ossutil cp P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
@@ -357,65 +353,6 @@ jobs:
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
 
-  deploy_lite:
-    needs:
-      - templete
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-
-      - name: Folder
-        id: folder
-        run: |
-          rm -rf examples boards
-
-      - name: Checkout templete
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-          repository: OS-Q/T51
-          token: ${{ secrets.OSQ_REPO_TOKEN }}
-          path: examples
-
-      - name: Checkout boards
-        uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-          repository: OS-Q/B51
-          token: ${{ secrets.OSQ_REPO_TOKEN }}
-          path: boards
-
-      - name: Setup OSS
-        uses: Qful/ossutil-action@master
-        with:
-          endpoint: ${{ secrets.OSS_ENDPOINT }}
-          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
-          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
-
-      - name: Upload OSS
-        id: OSS
-        run: |
-          zip -r P51.zip examples boards builder extend monitor link.json link.py platform.json platform.py
-          ossutil cp P51.zip ${{ secrets.OSS_P_Q_BUCKET }} -rf
-          echo "::set-output name=status::success"
-
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
-          message: "deploy lite success"
-
   check_release:
     needs:
       - release
@@ -470,23 +407,6 @@ jobs:
           topic: ${{github.repository}}/${{github.workflow}}
           message: "rebuild success"
 
-      - name: Send Mail
-        uses: Qful/mail-action@master
-        with:
-          server_address:  smtp.gmail.com
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
-          subject: OS-Q P51 package released (ESP8266)
-          to: ${{secrets.MAIL_TO}}
-          from: Qitas
-          cc: ${{github.event.pusher.email}}
-          content_type: text/html
-          convert_markdown: true
-          attachments: https://github.com/OS-Q/P51/releases/latest/download/log.txt
-          body: file://./qio/mail.md
-
-
   check_release_fail:
     needs:
       - check_release
@@ -509,6 +429,72 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
           message: "check release fail"
+
+
+  deploy_lite:
+    needs:
+      - templete
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Folder
+        id: folder
+        run: |
+          rm -rf examples boards
+
+      - name: Checkout templete
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+          repository: OS-Q/T51
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: examples
+
+      - name: Checkout boards
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+          repository: OS-Q/B51
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: boards
+
+      - name: Setup OSS
+        uses: Qful/ossutil-action@master
+        with:
+          endpoint: ${{ secrets.OSS_ENDPOINT }}
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      - name: Upload OSS
+        id: OSS
+        run: |
+          echo "Platform P51 for ESP8266 WiFi SoC" >> P51.txt
+          echo $(date +"%Y.%m.%d") >> P51.txt
+          echo ${GITHUB_REF/refs\/tags\//} >> P51.txt
+          echo "www.OS-Q.com\n" >> P51.txt
+          git log --stat -1 >> P51.txt
+          zip -r P51.zip examples boards builder extend monitor link.json link.py platform.json platform.py
+          ossutil cp P51.zip ${{ secrets.OSS_P_Q_BUCKET }} -f
+          ossutil cp P51.txt ${{ secrets.OSS_P_Q_BUCKET }} -f
+          echo "::set-output name=status::success"
+
+      - name: notification
+        uses: Qful/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
+          message: "deploy lite success"
 
   lite_check:
     needs:
@@ -537,6 +523,8 @@ jobs:
         id: download
         run: |
           ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.zip .
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.txt .
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.md .
           echo "::set-output name=status::success"
 
       - name: Install lite
@@ -552,6 +540,23 @@ jobs:
         run: |
           qio run -d examples/A
           qio run -d examples/B
+
+      - name: Send Mail
+        uses: Qful/mail-action@master
+        with:
+          server_address:  smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: OS-Q P51 package released (ESP8266)
+          to: ${{secrets.MAIL_TO}}
+          from: Qitas
+          cc: ${{github.event.pusher.email}}
+          content_type: text/html
+          convert_markdown: true
+          attachments: file://./P51.txt
+          body: file://./P51.md
+
 
   lite_check_fail:
     needs:
