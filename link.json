@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/OS-Q/P51.git"
   },
-  "version": "2.6.3",
+  "version": "2.6.4",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinoespressif8266",
@@ -32,7 +32,7 @@
       "script": "extend/frameworks/esp8266-rtos-sdk.py"
     },
     "esp8266-nonos-sdk": {
-      "package": "framework-esp8266-nonos-sdk",
+      "package": "E51A",
       "script": "extend/frameworks/esp8266-nonos-sdk.py"
     }
   },
@@ -55,11 +55,10 @@
       "owner": "platformio",
       "version": ">=1.5.0-beta"
     },
-    "framework-esp8266-nonos-sdk": {
+    "E51A": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": ">=2.1.0"
+      "version": "https://github.com/OS-Q/E51A.git"
     },
     "framework-simba": {
       "type": "framework",
