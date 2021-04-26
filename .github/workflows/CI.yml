@@ -56,9 +56,9 @@ jobs:
       fail-fast: false
       matrix:
         example:
+          - "simba-blink"
           - "arduino-blink"
           - "arduino-wifiscan"
-          - "simba-blink"
           - "arduino-asyncudp"
           - "arduino-webserver"
           - "esp8266-nonos-sdk-blink"
@@ -89,35 +89,16 @@ jobs:
         if: success()
         working-directory: examples
         run: |
-          pio run -d ${{ matrix.example }} >> ${{ matrix.example }}/log.txt
-          # cp -f ${{ matrix.example }}/.*io/build/**/*.bin  ${{ matrix.example }}/
-          echo "::set-output name=status::success"
+          pio run -d ${{ matrix.example }}
 
       - name: Upload
         if: env.UPLOAD_BUILD
         uses: actions/upload-artifact@v2
         with:
-          name: qio_${{ matrix.example }}_${{ matrix.os }}
-          path: examples/${{ matrix.example }}/.pio
+          name: qio_ci_build_${{ matrix.example }}_${{ matrix.os }}
+          path: examples/${{ matrix.example }}/.pio/build/
 
-  qio_pass:
-    needs:
-      - QIO
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "QIO success"
-
-  qio_fail:
+  QIO_fail:
     needs:
       - QIO
     if: failure()
@@ -132,16 +113,16 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "QIO failure"
+          message: "QIO CI failure"
 
   PIO:
     strategy:
       fail-fast: false
       matrix:
         example:
+          - "simba-blink"
           - "arduino-blink"
           - "arduino-wifiscan"
-          - "simba-blink"
           - "arduino-asyncudp"
           - "arduino-webserver"
           - "esp8266-nonos-sdk-blink"
@@ -172,34 +153,16 @@ jobs:
         if: success()
         working-directory: examples
         run: |
-          pio run -d ${{ matrix.example }} >> ${{ matrix.example }}/log.txt
-          echo "::set-output name=status::success"
+          pio run -d ${{ matrix.example }}
 
       - name: Upload
         if: env.UPLOAD_BUILD
         uses: actions/upload-artifact@v2
         with:
-          name: pio_${{ matrix.example }}_${{ matrix.os }}
-          path: examples/${{ matrix.example }}/.pio
+          name: pio_ci_build_${{ matrix.example }}_${{ matrix.os }}
+          path: examples/${{ matrix.example }}/.pio/build/
 
-  pio_pass:
-    needs:
-      - PIO
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - name: notification
-        uses: Qful/mqtt-action@master
-        with:
-          protocol: mqtt
-          host: ${{secrets.MQTT_SERVER}}
-          port: 1883
-          username: ${{secrets.MQTT_USERNAME}}
-          password: ${{secrets.MQTT_PASSWORD}}
-          topic: ${{github.repository}}/${{github.workflow}}
-          message: "PIO success"
-
-  pio_fail:
+  PIO_fail:
     needs:
       - PIO
     if: failure()
@@ -214,4 +177,4 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}
-          message: "PIO failure"
+          message: "PIO CI failure"
