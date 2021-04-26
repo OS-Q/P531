@@ -127,9 +127,7 @@ jobs:
           - "arduino-webserver"
           - "esp8266-nonos-sdk-blink"
           - "esp8266-rtos-sdk-blink"
-
         os: [ubuntu-latest, windows-latest, macos-latest]
-
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
