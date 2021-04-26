@@ -176,9 +176,35 @@ jobs:
             ${{ env.FIRMWARE }}/package.zip
             ${{ env.FIRMWARE }}/log.txt
 
+  release_fail:
+    needs:
+      - release
+    if: failure() && startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
 
+      - name: notification
+        uses: Qful/mqtt-action@master
+        with:
+          protocol: mqtt
+          host: ${{secrets.MQTT_SERVER}}
+          port: 1883
+          username: ${{secrets.MQTT_USERNAME}}
+          password: ${{secrets.MQTT_PASSWORD}}
+          topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
+          message: "release fail"
 
-  release_pass:
+      - name: Delet tag
+        run: |
+          git fetch
+          git tag -d ${GITHUB_REF/refs\/tags\//}
+          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
+
+  release_oss:
     needs:
       - release
     if: success() && startsWith(github.ref, 'refs/tags/')
@@ -224,22 +250,69 @@ jobs:
           ossutil cp ${{ env.FIRMWARE }}/P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
           echo "::set-output name=status::success"
 
-      - name: Delet tag
-        run: |
-          git fetch
-          git tag -d ${GITHUB_REF/refs\/tags\//}
-          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
+      # - name: Delet tag
+      #   run: |
+      #     git fetch
+      #     git tag -d ${GITHUB_REF/refs\/tags\//}
+      #     git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
-  release_fail:
+  release_templete:
     needs:
-      - release
-    if: failure() && startsWith(github.ref, 'refs/tags/')
+      - release_oss
+    if: success()
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Checkout templete
+        uses: actions/checkout@v2
+        with:
+          repository: OS-Q/T51A
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: A
+
+      - name: Checkout templete
+        uses: actions/checkout@v2
+        with:
+          repository: OS-Q/T51B
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: B
+
+      - name: Checkout boards
+        uses: actions/checkout@v2
+        with:
+          repository: OS-Q/B51
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: board
+
+      - name: Folder
+        id: folder
+        run: |
+          mv -f board boards
+          rm -rf examples
+          mkdir examples
+          cp -rf A B examples
+          zip -r package.zip examples boards builder extend monitor link.json link.py platform.json platform.py
+          echo "::set-output name=status::success"
+
+      - name: Setup OSS
+        uses: Qful/ossutil-action@master
+        with:
+          endpoint: ${{ secrets.OSS_ENDPOINT }}
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      - name: Upload OSS
+        id: OSS
+        run: |
+          cp package.zip P51T.zip
+          cp package.zip P51T_${GITHUB_REF/refs\/tags\//}.zip
+          ossutil cp ${{ env.FIRMWARE }}/P51T.zip ${{ secrets.OSS_P_BUCKET }} -rf
+          ossutil cp ${{ env.FIRMWARE }}/P51T_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          echo "::set-output name=status::success"
 
       - name: notification
         uses: Qful/mqtt-action@master
@@ -250,13 +323,7 @@ jobs:
           username: ${{secrets.MQTT_USERNAME}}
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
-          message: "release fail"
-
-      - name: Delet tag
-        run: |
-          git fetch
-          git tag -d ${GITHUB_REF/refs\/tags\//}
-          git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
+          message: "release templete success"
 
   rebuild:
     needs:
