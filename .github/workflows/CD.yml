@@ -326,7 +326,7 @@ jobs:
           git tag -d ${GITHUB_REF/refs\/tags\//}
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
-  deploy_package:
+  deploy:
     needs:
       - templete
     if: success()
@@ -345,12 +345,11 @@ jobs:
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
-      - name: Upload package
+      - name: upload package
         id: OSS
         run: |
           zip -r P51.zip boards builder extend monitor link.json link.py platform.json platform.py
           ossutil cp P51.zip ${{ secrets.OSS_P_BUCKET }} -f
-
 
       - name: notification
         uses: Qful/mqtt-action@master
@@ -365,15 +364,14 @@ jobs:
 
   check_deploy:
     needs:
-      - deploy_package
+      - deploy
     if: success()
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
-          submodules: "recursive"
-          fetch-depth: 1
+          python-version: 3.9
 
       - name: Setup OSS
         uses: Qful/ossutil-action@master
@@ -386,6 +384,7 @@ jobs:
         id: download
         run: |
           ossutil cp ${{ secrets.OSS_P_BUCKET }}P51.zip .
+          ls -a P51.zip
           echo "::set-output name=status::success"
 
       - name: Install package
@@ -512,11 +511,6 @@ jobs:
     if: success()
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: "recursive"
-          fetch-depth: 1
-
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
@@ -548,9 +542,9 @@ jobs:
         id: build
         if: success()
         run: |
-          unzip P51.zip examples
-          qio run -d examples/examples/A
-          qio run -d examples/examples/B
+          unzip P51.zip .
+          qio run -d examples/A
+          qio run -d examples/B
 
       - name: Send Mail
         if: success()
@@ -566,7 +560,7 @@ jobs:
           cc: ${{github.event.pusher.email}}
           content_type: text/html
           convert_markdown: true
-          attachments: file://./P51.txt
+          attachments: P51.txt
           body: file://./P51.md
 
   check_lite_end:
