@@ -28,7 +28,7 @@
       "script": "extend/frameworks/simba.py"
     },
     "esp8266-rtos-sdk": {
-      "package": "framework-esp8266-rtos-sdk",
+      "package": "E51B",
       "script": "extend/frameworks/esp8266-rtos-sdk.py"
     },
     "esp8266-nonos-sdk": {
@@ -49,11 +49,10 @@
       "owner": "platformio",
       "version": "~3.20704.0"
     },
-    "framework-esp8266-rtos-sdk": {
+    "E51B": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": ">=1.5.0-beta"
+      "version": "https://github.com/OS-Q/E51B.git"
     },
     "E51A": {
       "type": "framework",
