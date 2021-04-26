@@ -8,8 +8,6 @@ on:
 
 env:
   UPLOAD_BUILD: false
-
-env:
   TEMPLETE_ID: ["A","B"]
 
 jobs:
