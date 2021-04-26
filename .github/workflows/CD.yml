@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
-      - "[0-9]+.[0-9]+.[0-9]+*"
+      # - "[0-9]+.[0-9]+.[0-9]+*"
 
 env:
   UPLOAD_BUILD: false
@@ -81,9 +81,51 @@ jobs:
           git tag -d ${GITHUB_REF/refs\/tags\//}
           git push origin :refs/tags/${GITHUB_REF/refs\/tags\//}
 
-  release:
+  templete:
     needs:
       - build
+    if: success() && startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        template:
+          - "A"
+          - "B"
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
+          qio platform install file://.
+
+      - name: Checkout templete
+        uses: actions/checkout@v2
+        with:
+          repository: OS-Q/T51${{ matrix.template }}
+          token: ${{ secrets.OSQ_REPO_TOKEN }}
+          path: ${{ matrix.template }}
+
+      - name: Build templete
+        if: success()
+        working-directory: ${{ matrix.template }}
+        run: |
+          qio run -d .
+
+  release:
+    needs:
+      - templete
     if: success() && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
@@ -95,7 +137,7 @@ jobs:
 
       - name: Generate tag
         id: tag
-        if: startsWith(github.ref, 'refs/tags/') && github.repository == 'OS-Q/ P51'
+        if: startsWith(github.ref, 'refs/tags/') && github.repository == 'OS-Q/P51'
         run: |
           echo "::set-output name=release_tag::release_$(date +"%Y.%m.%d")_${GITHUB_REF/refs\/tags\//}"
           echo "::set-output name=status::success"
@@ -110,7 +152,8 @@ jobs:
           git log --stat -1 >> log.txt
           echo ${GITHUB_REF/refs\/tags\//} >> qio/mail.md
           echo $(date +"%Y.%m.%d") >> qio/mail.md
-          zip -r package.zip boards builder extend monitor link.json link.py platform.json platform.py
+          mkdir sources
+          cp -rf boards builder extend monitor link.json link.py platform.json platform.py sources
           echo "FIRMWARE=$PWD" >> $GITHUB_ENV
           echo "::set-output name=status::success"
 
@@ -118,8 +161,8 @@ jobs:
         if: steps.package.outputs.status == 'success' && !cancelled()
         uses: actions/upload-artifact@v2
         with:
-          name:  P51
-          path: ${{ env.FIRMWARE }}/package.zip
+          name:  P51_${{ steps.tag.outputs.release_tag }}
+          path: sources/
 
       - name: Upload Release
         id: upload-release
@@ -128,26 +171,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.OSQ_REPO_TOKEN }}
         with:
-          tag_name: ${{ steps.tag.outputs.release_tag }}
+          tag_name: ${GITHUB_REF/refs\/tags\//}
           files: |
             ${{ env.FIRMWARE }}/package.zip
             ${{ env.FIRMWARE }}/log.txt
 
-      - name: Setup OSS
-        uses: Qful/ossutil-action@master
-        with:
-          endpoint: ${{ secrets.OSS_ENDPOINT }}
-          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
-          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
-      - name: Upload OSS
-        id: OSS
-        run: |
-          cp package.zip  P51.zip
-          cp package.zip  P51_${GITHUB_REF/refs\/tags\//}.zip
-          ossutil cp ${{ env.FIRMWARE }}/P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
-          ossutil cp ${{ env.FIRMWARE }}/P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
-          echo "::set-output name=status::success"
 
   release_pass:
     needs:
@@ -170,6 +199,30 @@ jobs:
           password: ${{secrets.MQTT_PASSWORD}}
           topic: ${{github.repository}}/${{github.workflow}}/${GITHUB_REF/refs\/tags\//}
           message: "release success"
+
+      - name: Folder
+        id: folder
+        run: |
+          zip -r package.zip boards builder extend monitor link.json link.py platform.json platform.py
+          # mkdir sources
+          # cp -rf boards builder extend monitor link.json link.py platform.json platform.py sources
+          echo "::set-output name=status::success"
+
+      - name: Setup OSS
+        uses: Qful/ossutil-action@master
+        with:
+          endpoint: ${{ secrets.OSS_ENDPOINT }}
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      - name: Upload OSS
+        id: OSS
+        run: |
+          cp package.zip P51.zip
+          cp package.zip P51_${GITHUB_REF/refs\/tags\//}.zip
+          ossutil cp ${{ env.FIRMWARE }}/P51.zip ${{ secrets.OSS_P_BUCKET }} -rf
+          ossutil cp ${{ env.FIRMWARE }}/P51_${GITHUB_REF/refs\/tags\//}.zip ${{ secrets.OSS_P_BUCKET }} -f
+          echo "::set-output name=status::success"
 
       - name: Delet tag
         run: |
@@ -226,7 +279,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-          qio platform install https://github.com/OS-Q/ P51/releases/latest/download/package.zip
+          qio platform install https://github.com/OS-Q/P51/releases/latest/download/package.zip
           echo "::set-output name=status::success"
 
       - name: ReBuild
@@ -245,7 +298,7 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: OS-Q  P51 package released
+          subject: OS-Q P51 package released (ESP8266)
           to: ${{secrets.MAIL_TO}}
           from: Qitas
           cc: ${{github.event.pusher.email}}
@@ -253,9 +306,6 @@ jobs:
           convert_markdown: true
           attachments: log.txt
           body: file://./qio/mail.md
-
-
-
 
   rebuild_pass:
     needs:

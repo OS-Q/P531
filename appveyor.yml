@@ -12,10 +12,10 @@ platform:
   - x64
 install:
   - cmd: git submodule update --init --recursive
-  - cmd: SET PATH=C:\Python39\Scripts;%PATH%
-  - cmd: pip3 install -U https://github.com/platformio/platformio/archive/develop.zip
+  - cmd: SET PATH=C:\Python37\Scripts;%PATH%
+  - cmd: pip install -U https://github.com/platformio/platformio/archive/develop.zip
   - cmd: pio platform install file://.
-  - cmd: pip3 install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
+  - cmd: pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
   - cmd: qio platform install file://.
 
 build_script:
