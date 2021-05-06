@@ -1,7 +1,7 @@
 {
-  "name": "P51",
-  "title": "OS-Q Platform ESP8266",
-  "description": "Espressif8266 wifi SoC with 160MHz LX106 Core",
+  "name": "P52",
+  "title": "Espressif 8266",
+  "description": "Espressif Systems is a privately held fabless semiconductor company. They provide wireless communications and Wi-Fi chips which are widely used in mobile devices and the Internet of Things applications.",
   "homepage": "https://espressif.com/",
   "license": "Apache-2.0",
   "keywords": [

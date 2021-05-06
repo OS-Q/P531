@@ -1,15 +1,19 @@
-*.db
 *.pyc
-__pycache__/
-*.vscode/
+*__pyc*/
 *.pio/
+*.vscode/
+misc/svd/*.html
 *.rst
-# *.md
-README*
+examples/**/*.yml
+examples/**/*.md
+**/CONTR*
+**/CHANGE*
+.gitmodules
+**/*/README*
 LICENSE*
 *.png
 *.jpg
-examples/**/*.yml
-**/CONTR*
-**/CHANGE*
-examples/**/*.md
+*.rst
+# *.md
+**/*/README*
+README

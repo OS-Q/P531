@@ -39,12 +39,13 @@ jobs:
             git submodule update --init --recursive
             python -m pip install --upgrade pip
             pip install -U https://github.com/platformio/platformio/archive/develop.zip
-            pio platform install file://.
+            pio platform install https://github.com/OS-Q/P52/archive/pio.zip
       - run:
           name: "Build"
           command: |
             pio run -d examples/arduino-blink
-            pio run -d examples/arduino-wifiscan
+            pio run -d examples/esp8266-nonos-sdk-blink
+            pio run -d examples/esp8266-rtos-sdk-blink
             pio run -d examples/simba-blink
             pio run -d examples/arduino-asyncudp
             pio run -d examples/arduino-webserver
