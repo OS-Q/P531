@@ -2,15 +2,15 @@ kind: pipeline
 name: OSQ
 
 steps:
-- name: example
+- name: PIOb
   image: python:3
   commands:
   - apt update
   - apt install -y git
   - git submodule update --init --recursive
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip
-  - pio platform install file://.
+  - pio platform install https://github.com/OS-Q/P52/archive/pio.zip
   - pio run -d examples/arduino-blink
-  - pio run -d examples/arduino-wifiscan
-  - pio run -d examples/arduino-webserver
+  - pio run -d examples/esp8266-nonos-sdk-blink
+  - pio run -d examples/esp8266-rtos-sdk-blink
   - pio run -d examples/simba-blink
