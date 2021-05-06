@@ -288,7 +288,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-          qio platform install https://github.com/OS-Q/P51/releases/latest/download/package.zip
+          qio platform install https://github.com/OS-Q/P52/releases/latest/download/package.zip
           echo "::set-output name=status::success"
 
       - name: Build
@@ -348,8 +348,8 @@ jobs:
       - name: upload package
         id: OSS
         run: |
-          zip -r P51.zip boards builder extend monitor link.json link.py platform.json platform.py
-          ossutil cp P51.zip ${{ secrets.OSS_P_BUCKET }} -f
+          zip -r P52.zip boards builder extend monitor link.json link.py platform.json platform.py
+          ossutil cp P52.zip ${{ secrets.OSS_P_BUCKET }} -f
 
       - name: notification
         uses: Qful/mqtt-action@master
@@ -383,8 +383,8 @@ jobs:
       - name: download package
         id: download
         run: |
-          ossutil cp ${{ secrets.OSS_P_BUCKET }}P51.zip .
-          ls -a P51.zip
+          ossutil cp ${{ secrets.OSS_P_BUCKET }}P52.zip .
+          ls -a P52.zip
           echo "::set-output name=status::success"
 
       - name: Install package
@@ -392,7 +392,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-          qio platform install file://./P51.zip
+          qio platform install file://./P52.zip
 
       - name: notification
         uses: Qful/mqtt-action@master
@@ -478,20 +478,20 @@ jobs:
       - name: Upload OSS
         id: OSS
         run: |
-          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.md .
-          echo ${GITHUB_REF/refs\/tags\//} >> P51.md
-          echo $(date +"%Y.%m.%d") >> P51.md
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P52.md .
+          echo ${GITHUB_REF/refs\/tags\//} >> P52.md
+          echo $(date +"%Y.%m.%d") >> P52.md
 
-          echo "Platform P51 for ESP8266 WiFi SoC" >> P51.txt
-          echo $(date +"%Y.%m.%d") >> P51.txt
-          echo ${GITHUB_REF/refs\/tags\//} >> P51.txt
-          echo "www.OS-Q.com\n" >> P51.txt
-          git log --stat -1 >> P51.txt
+          echo "Platform P52 for ESP8266 WiFi SoC" >> P52.txt
+          echo $(date +"%Y.%m.%d") >> P52.txt
+          echo ${GITHUB_REF/refs\/tags\//} >> P52.txt
+          echo "www.OS-Q.com\n" >> P52.txt
+          git log --stat -1 >> P52.txt
 
-          zip -r P51.zip examples boards builder extend monitor link.json link.py platform.json platform.py
-          ossutil cp P51.zip ${{ secrets.OSS_P_Q_BUCKET }} -f
-          ossutil cp P51.txt ${{ secrets.OSS_P_Q_BUCKET }} -f
-          ossutil cp P51.md ${{ secrets.OSS_P_Q_BUCKET }} -f
+          zip -r P52.zip examples boards builder extend monitor link.json link.py platform.json platform.py
+          ossutil cp P52.zip ${{ secrets.OSS_P_Q_BUCKET }} -f
+          ossutil cp P52.txt ${{ secrets.OSS_P_Q_BUCKET }} -f
+          ossutil cp P52.md ${{ secrets.OSS_P_Q_BUCKET }} -f
           echo "::set-output name=status::success"
 
       - name: notification
@@ -526,9 +526,9 @@ jobs:
       - name: download lite
         id: download
         run: |
-          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.zip .
-          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.txt .
-          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P51.md .
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P52.zip .
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P52.txt .
+          ossutil cp ${{ secrets.OSS_P_Q_BUCKET }}P52.md .
           echo "::set-output name=status::success"
 
       - name: Install lite
@@ -536,13 +536,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
-          qio platform install file://./P51.zip
+          qio platform install file://./P52.zip
 
       - name: Build
         id: build
         if: success()
         run: |
-          unzip P51.zip
+          unzip P52.zip
           qio run -d examples/A
 
       - name: Send Mail
@@ -553,14 +553,14 @@ jobs:
           server_port: 465
           username: ${{secrets.MAIL_USERNAME}}
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: OS-Q P51 package released (ESP8266)
+          subject: OS-Q P52 package released (ESP8266)
           to: ${{secrets.MAIL_TO}}
           from: Qitas
           cc: ${{github.event.pusher.email}}
           content_type: text/html
           convert_markdown: true
-          attachments: P51.txt
-          body: file://./P51.md
+          attachments: P52.txt
+          body: file://./P52.md
 
   check_package_end:
     needs:

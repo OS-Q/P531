@@ -1,10 +1,26 @@
+# Copyright 2014-present PlatformIO <contact@platformio.org>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# pylint: disable=redefined-outer-name
+
 import re
 import sys
 from os.path import join
 
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild,
-                            Builder, Default, DefaultEnvironment)
+                          Builder, Default, DefaultEnvironment)
 from platformio import util
 
 #
@@ -168,7 +184,7 @@ env.Replace(
         "--port", '"$UPLOAD_PORT"'
     ],
     ERASETOOL=join(
-        platform.get_package_dir("C51D") or "", "esptool.py"),
+        platform.get_package_dir("tool-esptoolpy") or "", "esptool.py"),
     ERASECMD='"$PYTHONEXE" "$ERASETOOL" $ERASEFLAGS erase_flash',
 
     PROGSUFFIX=".elf"
@@ -287,7 +303,7 @@ if upload_protocol == "espota":
             "espressif8266.html#over-the-air-ota-update\n")
     env.Replace(
         UPLOADER=join(
-            platform.get_package_dir("A51") or "",
+            platform.get_package_dir("framework-arduinoespressif8266") or "",
             "tools", "espota.py"),
         UPLOADERFLAGS=["--debug", "--progress", "-i", "$UPLOAD_PORT"],
         UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS -f $SOURCE'
@@ -299,7 +315,7 @@ if upload_protocol == "espota":
 elif upload_protocol == "esptool":
     env.Replace(
         UPLOADER=join(
-            platform.get_package_dir("C51D") or "", "esptool.py"),
+            platform.get_package_dir("tool-esptoolpy") or "", "esptool.py"),
         UPLOADERFLAGS=[
             "--chip", "esp8266",
             "--port", '"$UPLOAD_PORT"',

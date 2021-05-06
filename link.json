@@ -1,11 +1,11 @@
 {
-  "name": "P51",
-  "title": "OS-Q Platform ESP8266",
-  "description": "Espressif8266 WiFi SoC with 160MHz LX106 Core",
-  "homepage": "https://www.OS-Q.com/P51",
+  "name": "P52",
+  "title": "Espressif 8266",
+  "description": "Espressif Systems is a privately held fabless semiconductor company. They provide wireless communications and Wi-Fi chips which are widely used in mobile devices and the Internet of Things applications.",
+  "homepage": "https://espressif.com/",
   "license": "Apache-2.0",
   "keywords": [
-    "OS-Q",
+    "dev-platform",
     "Wi-Fi",
     "Xtensa",
     "106Micro"
@@ -15,24 +15,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OS-Q/P51.git"
+    "url": "https://github.com/platformio/platform-espressif8266.git"
   },
   "version": "2.6.4",
   "frameworks": {
     "arduino": {
-      "package": "A51",
+      "package": "framework-arduinoespressif8266",
       "script": "extend/frameworks/arduino.py"
     },
     "simba": {
-      "package": "simba",
+      "package": "framework-simba",
       "script": "extend/frameworks/simba.py"
     },
     "esp8266-rtos-sdk": {
-      "package": "E51B",
+      "package": "framework-esp8266-rtos-sdk",
       "script": "extend/frameworks/esp8266-rtos-sdk.py"
     },
     "esp8266-nonos-sdk": {
-      "package": "E51A",
+      "package": "framework-esp8266-nonos-sdk",
       "script": "extend/frameworks/esp8266-nonos-sdk.py"
     }
   },
@@ -43,34 +43,39 @@
       "version": "~2.40802.0",
       "optionalVersions": ["~1.40802.0"]
     },
-    "A51": {
+    "framework-arduinoespressif8266": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/A51.git"
+      "owner": "platformio",
+      "version": "~3.20704.0"
     },
-    "E51B": {
+    "framework-esp8266-rtos-sdk": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/E51B.git"
+      "owner": "platformio",
+      "version": ">=1.5.0-beta"
     },
-    "E51A": {
+    "framework-esp8266-nonos-sdk": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/E51A.git"
+      "owner": "platformio",
+      "version": ">=2.1.0"
     },
-    "simba": {
+    "framework-simba": {
       "type": "framework",
       "optional": true,
-      "version": "https://github.com/OS-Q/simba.git"
+      "owner": "platformio",
+      "version": ">=7.0.0"
     },
     "tool-esptool": {
       "type": "uploader",
       "owner": "platformio",
       "version": "<2"
     },
-    "C51D": {
+    "tool-esptoolpy": {
       "type": "uploader",
-      "version": "https://github.com/OS-Q/C51D.git"
+      "owner": "platformio",
+      "version": "~1.30000.0"
     },
     "tool-mkspiffs": {
       "type": "uploader",
