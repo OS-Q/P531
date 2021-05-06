@@ -1,17 +1,18 @@
-name: CI
+name: QIO
 
 on:
   push:
     branches:
-      - master
+      - qio
     paths:
       - 'boards/**'
       - 'extend/**'
-      - 'misc/**'
+      - 'monitor/**'
       - 'examples/**'
       - 'ldscripts/**'
-      - '**.json'
-      - '**.py'
+      - 'link.json'
+      - 'link.py'
+
 
 jobs:
   CodeCheck:
@@ -61,8 +62,6 @@ jobs:
           - "arduino-webserver"
           - "esp8266-nonos-sdk-blink"
           - "esp8266-rtos-sdk-blink"
-
-        package: ["pio","qio"]
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -77,16 +76,9 @@ jobs:
           python-version: 3.9
 
       - name: Install qio
-        if: matrix.package == 'qio'
         run: |
           pip install -U https://github.com/OS-Q/M03/releases/latest/download/qio.zip
           qio platform install file://.
-
-      - name: Install pio
-        if: matrix.package == 'pio'
-        run: |
-          pip install -U https://github.com/platformio/platformio/archive/develop.zip
-          pio platform install file://.
 
       - name: Build examples
         working-directory: examples
